@@ -131,16 +131,15 @@ const logout = async (req, res) => {
  * @returns 
  */
 const isAuth = async (req, res, next) => {
-  // let token = req.cookies.authToken;
   try {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]
+    const token = authHeader && authHeader.split(' ')[1];
     
     const user = await User.findByToken(token);
     if (!user) return res.json({ isAuth: false, error: true, message: 'No User connected' });
     if (user && user.token !== token) return res.json({ isAuth: false, error: true, message: 'Invalid Token' });
 
-    req.token = token
+    req.token = token;
     req.user = user;
     next();
   } catch (error) {

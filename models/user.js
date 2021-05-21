@@ -82,7 +82,7 @@ UserSchema.static('findByToken', async function(token) {
     try {
       const user = this;
       const decode = jwt.verify(token, process.env.JWT_SECRET);
-      console.log('decode: ', decode);
+      
       if (!decode) {
         throw new Error('Invalid token');
       }
