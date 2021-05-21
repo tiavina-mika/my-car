@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import { formatReturnedJSON } from '../config/db';
 
 const carSchema = new mongoose.Schema({

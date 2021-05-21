@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import { ValidationError } from 'express-validation';
 
 import connectDB from './config/db';
 import carRouter from './routes/car';
@@ -15,14 +16,17 @@ connectDB();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', carRouter);
+app.use('/api', carRouter);
 
-// app.get('/', (req, res) => {
-//   res.status(200).json({
-//     message: 'I am using babel in NodeJS',
-//     status: 'success',
-//   });
-// });
+// valiadion
+app.use((err, req, res, next) => {
+  if (err instanceof ValidationError) {
+    res.status(err.statusCode).json(err);
+  } else {
+    res.status(500)
+      .json(err);
+  }
+});
 
 const PORT = process.env.PORT || 4200;
 app.listen(PORT, () => {

@@ -35,7 +35,7 @@ const carById = async (req, res, next, id) => {
     const { name } = req.body;
     // Validate request
     if (!name) {
-      res.status(400).send({ message: "Content can not be empty!" });
+      res.status(400).json({ message: 'Content can not be empty!' });
       return;
     }
   
@@ -47,9 +47,7 @@ const carById = async (req, res, next, id) => {
     const result = await car.save();
     res.status(200).json(result);
   } catch (error) {
-    res.status(500).send({
-      message: err.message || 'Some error occurred while creating the Car.'
-    });
+    res.status(500).json(error);
   }
 };
 
