@@ -64,10 +64,11 @@ const remove = async (req, res) => {
 
     const result = await Car.findOneAndUpdate({
         _id: car._id,
-        "comments._id": commentId
+        "comments._id": commentId,
       }, {
           $set: {
               "comments.$.text": text,
+              "comments.$.updatedAt": Date.now(),
           }
       },
       { new: true })

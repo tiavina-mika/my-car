@@ -61,10 +61,7 @@ const carById = async (req, res, next, id) => {
  */
 const edit = async (req, res) => {
   try {
-      // const { isValid, errors } = validateAuthor(req.body)
-      // if(!isValid) {
-      //     return res.status(400).json(errors)
-      // }
+
       const car = await req.car;
       car.set(req.body);
       car.updatedAt = Date.now();
