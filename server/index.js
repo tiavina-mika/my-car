@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 import connectDB from './config/db';
 import carRouter from './routes/car';
 import authRouter from './routes/auth';
+import commentRouter from './routes/comment';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(mongoSanitize());
 
 app.use('/api', carRouter);
+app.use('/api', commentRouter);
 app.use('/users', authRouter);
 
 // valiadion

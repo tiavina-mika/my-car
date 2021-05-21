@@ -95,7 +95,6 @@ const remove = async (req, res) => {
 }
 
 
-
 // ---------------------------------- //
 // -------------- READ -------------- //
 // ---------------------------------- //
@@ -107,13 +106,13 @@ const remove = async (req, res) => {
  * @param {*} res 
  * @returns {*}
  */
-const findAll = async (req, res) => {
+const findAll = async (_, res) => {
   try {
     const cars = await Car.find().exec();
 
     return res.status(200).json(cars);
   } catch (error) {
-      res.status(400).json(error);
+    res.status(400).json(error);
   }
 }
 

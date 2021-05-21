@@ -5,28 +5,17 @@ import carController from '../controllers/car';
 import carValidation from '../validations/car';
 import authController from '../controllers/auth';
 
-// import { authJwt } from '../config/passport'
-
-const router = express.Router()
+const router = express.Router();
 
 router.param('carId', carController.carById);
 
 router.route('/cars')
   .get(authController.isAuth, carController.findAll)
   .post(validate(carValidation.create), carController.create);
-  // .post(validate(carValidation.create), carController.create);
-  // .post(authJwt, upload.single('photo'), carController.create);
 
-// router.route('/cars/photo/:carId')
-//   .get(carController.photo)
-// router.route('/cars/filter/:slug')
-//   .get(carController.findOneBySlug)
 router.route('/cars/:carId')
   .get(carController.findOne)
   .put(validate(carValidation.edit), carController.edit)
-//   .put(authJwt, upload.single('photo'), carController.edit)
-//   .delete(authJwt, carController.remove)
-  .delete(carController.remove)
-
+  .delete(carController.remove);
 
 export default router;
