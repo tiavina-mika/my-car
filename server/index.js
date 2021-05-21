@@ -22,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // To remove data, use:
 app.use(mongoSanitize());
 
+app.use('/test', (req, res) => {
+  res.send('Hello Word');
+});
 app.use('/api', carRouter);
 app.use('/api', commentRouter);
 app.use('/users', authRouter);
