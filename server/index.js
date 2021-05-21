@@ -5,6 +5,7 @@ import { ValidationError } from 'express-validation';
 
 import connectDB from './config/db';
 import carRouter from './routes/car';
+import authRouter from './routes/auth';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api', carRouter);
+app.use('/users', authRouter);
 
 // valiadion
 app.use((err, req, res, next) => {

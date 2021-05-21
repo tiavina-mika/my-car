@@ -4,11 +4,16 @@ mongoose.Promise = global.Promise;
 
 const connectDB = async () => {
   try {
+
     await mongoose.connect(
       process.env.DB_URL,
-      { useNewUrlParser: true, useUnifiedTopology: true }
+      { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true,
+        useCreateIndex: true, 
+      }
     );
-
+    
     console.log('MongoDB is Connected...');
   } catch (err) {
     console.error(err.message);
