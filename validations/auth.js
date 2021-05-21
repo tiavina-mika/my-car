@@ -17,12 +17,16 @@ const validateBody = (otherValues) => {
 };
 
 
-// POST /api/cars
+// POST /users/signup
 const signup = validateBody({
   confirmPassword: Joi.string().valid(Joi.ref('password')).required()
 });
 
+// POST /users/login
+const login = validateBody();
+
 export default {
   signup,
+  login,
 };
 
