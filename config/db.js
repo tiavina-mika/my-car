@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+mongoose.Promise = global.Promise;
+
 const connectDB = async () => {
   try {
     await mongoose.connect(
@@ -12,5 +14,18 @@ const connectDB = async () => {
     console.error(err.message);
   }
 };
+
+/**
+ * return id instead of _id
+ */
+export const formatReturnedJSON = (schema) => {
+  schema.set('toJSON', {
+    transform: (_, returnedObject) => {
+      returnedObject.id = returnedObject._id.toString()
+      delete returnedObject._id
+      delete returnedObject.__v
+    }
+  })
+}
 
 export default connectDB;
