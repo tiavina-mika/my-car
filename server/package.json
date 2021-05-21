@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && node ./dist/index.js",
-    "start:dev": "nodemon --exec babel-node ./index.js",
+    "dev": "nodemon --exec babel-node ./index.js",
     "build": "npm run clean && npm run build-babel",
     "clean": "rm -rf dist && mkdir dist",
-    "build-babel": "babel -d ./dist ./index.js -s"
+    "build-babel": "babel . --out-dir dist --ignore node_modules"
   },
   "author": "tiavina-mika",
   "license": "ISC",
