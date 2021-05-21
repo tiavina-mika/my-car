@@ -74,6 +74,7 @@ UserSchema.methods.comparePassword = async function(toCompare) {
   }
 };
 
+
 /**
  * validating token for auth routes middleware
  * @returns {Object}
