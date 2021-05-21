@@ -3,22 +3,26 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import connectDB from './config/db';
+import carRouter from './routes/car';
 
 dotenv.config();
 
 const app = express();
 
+// connect and run database
 connectDB();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'I am using babel in NodeJS',
-    status: 'success',
-  });
-});
+app.use('/', carRouter);
+
+// app.get('/', (req, res) => {
+//   res.status(200).json({
+//     message: 'I am using babel in NodeJS',
+//     status: 'success',
+//   });
+// });
 
 const PORT = process.env.PORT || 4200;
 app.listen(PORT, () => {
