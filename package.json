@@ -1,5 +1,8 @@
 {
   "scripts": {
     "start": "node server/dist/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^9.0.2"
   }
 }
