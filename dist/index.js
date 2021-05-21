@@ -31,6 +31,9 @@ app.use(_bodyParser["default"].urlencoded({
 })); // To remove data, use:
 
 app.use(mongoSanitize());
+app.use('/test', function (req, res) {
+  res.send('Hello Word');
+});
 app.use('/api', _car["default"]);
 app.use('/api', _comment["default"]);
 app.use('/users', _auth["default"]); // valiadion
