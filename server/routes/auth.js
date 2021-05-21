@@ -1,6 +1,7 @@
 import express from 'express';
 import { validate } from 'express-validation';
 
+
 import authController from '../controllers/auth';
 import authValidations from '../validations/auth';
 // import userController from '../controllers/user'
@@ -8,8 +9,8 @@ import authValidations from '../validations/auth';
 
 const router = express.Router()
 
-// router.route('/login')
-//   .post(authLocal, authController.signin)
+router.route('/login')
+  .post(validate(authValidations.login), authController.login)
 router.route('/signup')
   .post(validate(authValidations.signup), authController.signup)
 // router.route('/auth/signout')

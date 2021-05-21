@@ -3,6 +3,7 @@ import { validate } from 'express-validation';
 
 import carController from '../controllers/car';
 import carValidation from '../validations/car';
+import authController from '../controllers/auth';
 
 // import { authJwt } from '../config/passport'
 
@@ -11,7 +12,7 @@ const router = express.Router()
 router.param('carId', carController.carById);
 
 router.route('/cars')
-  .get(carController.findAll)
+  .get(authController.isAuth, carController.findAll)
   .post(validate(carValidation.create), carController.create);
   // .post(validate(carValidation.create), carController.create);
   // .post(authJwt, upload.single('photo'), carController.create);
