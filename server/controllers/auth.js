@@ -1,5 +1,12 @@
 import User from '../models/user';
 
+/**
+ * 
+ * signup the user
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const signup = async (req, res) => {
   let { email, password } = req.body;
 
@@ -25,7 +32,7 @@ const signup = async (req, res) => {
       message: 'Registration Success',
     });
   } catch (error) {
-    console.error('signup-error', error);
+    console.error('signup error', error);
 
     return res.status(500).json({
       error: true,
@@ -34,6 +41,14 @@ const signup = async (req, res) => {
   }
 };
 
+
+/**
+ * 
+ * login the user
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const login = async (req, res) => {
   let { email, password } = req.body;
 
@@ -67,7 +82,7 @@ const login = async (req, res) => {
       user: { id: user._id, email: user.email, token },
     });
   } catch (error) {
-    console.error('signup-error', error);
+    console.error('login error', error);
 
     return res.status(500).json({
       error: true,
@@ -76,6 +91,45 @@ const login = async (req, res) => {
   }
 };
 
+/**
+ * logout the current connected user
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+const logout = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate({ _id: req.user._id }, { token: '' });
+
+    if (!user) {
+      return res.status(400).json({
+        error: true,
+        message: 'User not found',
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Logged out successfully',
+    });
+  } catch (error) {
+    console.error('logout error: ', error);
+
+    return res.status(500).json({
+      error: true,
+      message: 'Cannot logout',
+    });
+  }
+}
+
+/**
+ * 
+ * test if the user is connected
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 const isAuth = async (req, res, next) => {
   // let token = req.cookies.authToken;
   try {
@@ -90,7 +144,7 @@ const isAuth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.error('error: ', error);
+    console.error('isAuth error: ', error);
   }
 }
 
@@ -100,5 +154,6 @@ const isAuth = async (req, res, next) => {
 export default {
   signup,
   login,
+  logout,
   isAuth,
 };
