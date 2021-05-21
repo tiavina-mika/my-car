@@ -96,6 +96,7 @@ UserSchema.static('findByToken', async function(token) {
     }
 })
 
+
 // return id instead of _id
 formatReturnedJSON(UserSchema);
 
