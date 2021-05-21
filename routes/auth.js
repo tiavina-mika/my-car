@@ -10,11 +10,13 @@ import authValidations from '../validations/auth';
 const router = express.Router()
 
 router.route('/login')
-  .post(validate(authValidations.login), authController.login)
+  .post(validate(authValidations.login), authController.login);
+
 router.route('/signup')
-  .post(validate(authValidations.signup), authController.signup)
-// router.route('/auth/signout')
-//   .get(authController.signout)
+  .post(validate(authValidations.signup), authController.signup);
+
+router.route('/logout')
+  .get(authController.isAuth, authController.logout)
 // router.route('/auth/change-password/:userId')
 //   .put(authJwt, authController.changePassword)
 // router.route('/auth/new-password/:userId')
