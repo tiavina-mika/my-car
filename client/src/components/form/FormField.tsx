@@ -14,17 +14,19 @@ const useStyles = makeStyles((theme: Theme) =>({
 
 type Props = {
   name: string;
-  label: string;
+  label?: string;
   rootClassName?: string;
   labelClassName?: string;
   inputClassName?: string;
   options?: any;
   register: any;
+  defaultValue?: string;
   type?: any;
   errors?: any;
   errorMessage?: string;
   required?: boolean;
   fullWidth?: boolean;
+  placeholder?: string;
   variant?: 'filled' | 'outlined' | 'standard';
 };
 
@@ -42,21 +44,27 @@ const FormField = ({
   required = false,
   fullWidth = true,
   variant = 'outlined',
+  placeholder,
+  defaultValue,
 }: Props) => {
   const classes = useStyles();
 
   return (
     <FormControl margin="normal" fullWidth={fullWidth} classes={{ root: rootClassName }}>
-      <FormLabel classes={{ root: clsx(labelClassName, classes.label) }}>
-        {label} 
-        {required && <span className={classes.asterix}> *</span>}
-      </FormLabel> 
+      {label && (
+        <FormLabel classes={{ root: clsx(labelClassName, classes.label) }}>
+          {label} 
+          {required && <span className={classes.asterix}> *</span>}
+        </FormLabel> 
+      )}
 
       <TextField
         className={inputClassName}
         type={type}
         fullWidth={fullWidth}
         variant={variant}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
         {...register(name, { ...options, required })}
       />
       {errors[name] && (

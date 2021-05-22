@@ -7,7 +7,14 @@ export interface Car {
   createdAt: string;
   updatedAt: string;
   name: string;
-  comments: Comment[];
+  comments?: Comment[];
+  shortDesc: string;
+  year: string;
+  distance: string;
+  fuel: 'Essence' | 'Diesel' | 'Electrique' | 'Hybride';
+  gearbox: 'Manuelle' | 'Automatique';
+  price: string;
+  image?: string;
 }
 export interface CarState {
   car?: Car | null;
@@ -29,8 +36,8 @@ export interface CarFormValues {
 export type PartialCarFormValues = Partial<CarFormValues>;
 
 export type CarApiResponse = Car & ApiResponseError;
-// export interface CarFormInitialValues extends Omit<PartialCarFormValues, 'descLong'> {
-//   descLong?: any;
-// }
+export interface CarFormInitialValues extends Omit<PartialCarFormValues, 'descLong'> {
+  descLong?: any;
+}
 
 export type CarTypes = CarAction;
