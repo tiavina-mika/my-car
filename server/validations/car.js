@@ -1,7 +1,6 @@
 import { Joi } from 'express-validation';
 
 /**
- * 
  * validate the request body for PUT and POST
  * @param {...object} otherValues 
  * @returns 
@@ -10,6 +9,13 @@ const validateBody = (otherValues) => {
   return {
     body: Joi.object({
       name: Joi.string().required(),
+      shortDesc: Joi.string().required(),
+      year: Joi.string().required(),
+      distance: Joi.string().required(),
+      fuel: Joi.string(),
+      gearbox: Joi.string(),
+      price: Joi.string().required(),
+      image: Joi.string(),
       ...otherValues,
     }),
   }
