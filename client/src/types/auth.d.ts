@@ -1,0 +1,32 @@
+import { ApiResponseSuccess } from './app.d';
+import { User } from "./user";
+
+export interface LoginFormValues {
+	email: string;
+	password: string;
+}
+
+export interface SignupFormValues extends LoginFormValues {
+	confirmPassword: string;
+}
+
+interface UserResponse extends User {
+	token?: string;
+}
+
+export interface LoginApiResponse {
+	success: boolean;
+	user: UserResponse;
+}
+
+export interface SignupApiResponse extends ApiResponseSuccess {}
+
+export interface LogoutApiResponse {
+	success: boolean;
+	message: string;
+}
+
+export interface LogoutApiResponse extends ApiResponseSuccess {
+	id: string;
+}
+
