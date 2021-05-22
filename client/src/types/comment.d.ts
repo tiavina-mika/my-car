@@ -1,7 +1,4 @@
-import { Object } from 'parse';
 import { User } from './user';
-
-
 export interface Comment {
   id: string;
   text: string;
