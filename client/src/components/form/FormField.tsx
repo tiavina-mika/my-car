@@ -20,7 +20,7 @@ type Props = {
   inputClassName?: string;
   options?: any;
   register: any;
-  type: any;
+  type?: any;
   errors?: any;
   errorMessage?: string;
   required?: boolean;

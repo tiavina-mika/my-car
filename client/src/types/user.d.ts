@@ -1,5 +1,6 @@
 export interface User {
   email: string;
+  name: string;
   active: boolean;
   id: string;
   createdAt: string;

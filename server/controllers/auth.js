@@ -3,17 +3,16 @@ import User from '../models/user';
 /**
  * 
  * signup the user
- * @param {*} req 
+ * @param {*} req // body: { name, email, password }
  * @param {*} res 
  * @returns 
  */
 const signup = async (req, res) => {
-  let { email, password } = req.body;
 
   try {
     // Check if the email has been already registered.
     const user = await User.findOne({
-      email,
+      email: req.body,
     });
 
     if (user) {
@@ -23,7 +22,7 @@ const signup = async (req, res) => {
       });
     }
 
-    const newUser = new User({ email, password });
+    const newUser = new User(req.body);
 
     await newUser.save();
 

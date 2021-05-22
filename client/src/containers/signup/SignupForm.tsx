@@ -31,6 +31,14 @@ const SignupForm = () => {
 			/>
 
 			<FormField 
+				register={register}
+				errors={errors} 
+				name="name" 
+				label="Nom"
+				required
+			/>
+
+			<FormField 
 				register={register} 
 				errors={errors} 
 				type="password"
