@@ -7,6 +7,7 @@ import { CAR_API } from './api';
 import { showMessage, showResponseError } from './app';
 import {  actionWithLoader  } from './utils';
 
+
 // --------------------------------------------------------//
 // --------------------- CRUD actions ---------------------//
 // --------------------------------------------------------//
@@ -35,6 +36,7 @@ export const createCar = (values: PartialCarFormValues): AppThunk => {
     dispatch(showMessage(`${car.name} ajouté avec succès`, 'success'));
   });
 };
+
 
 /**
  * delete current car
@@ -103,6 +105,7 @@ export const loadCarsThunk = (): (dispatch: AppDispatch) => Promise<Car[]> => {
   };
 };
 
+
 /**
  * load car into redux
  * @param id
@@ -131,6 +134,7 @@ export const loadCarThunk = (id: string): (dispatch: AppDispatch, getState: () =
   };
 };
 
+
 // --------------------------------------------------------//
 // --------------------- WITH LOADER ----------------------//
 // --------------------------------------------------------//
@@ -146,6 +150,7 @@ export const updateCar = (car: Car, values: PartialCarFormValues): AppThunk => {
     await updateCarThunk(car, values)(dispatch);
   });
 };
+
 
 /**
  * load all cars

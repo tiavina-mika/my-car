@@ -6,6 +6,7 @@ import { COMMENT_API } from './api';
 import { showMessage, showResponseError } from './app';
 import {  actionWithLoader  } from './utils';
 
+
 // --------------------------------------------------------//
 // --------------------- CRUD actions ---------------------//
 // --------------------------------------------------------//
@@ -62,6 +63,7 @@ export const updateCommentThunk = (car: Car, id: string, body: CommentFormValues
     dispatch(showMessage(`${car.name} modifié avec succès`, 'success'));
   };
 };
+
 
 /**
  * update a car's comment
