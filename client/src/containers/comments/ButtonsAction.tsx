@@ -21,7 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     firstButton: {
       marginRight: theme.spacing(1),
-    }
+    },
+    form: {
+      paddingLeft: theme.spacing(8.8),
+    },
   }),
 );
 
@@ -58,7 +61,13 @@ const ButtonActions = ({ id, text }: Props) => {
         </Button>
       </Box>
 
-      {open && <CommentForm onSave={handleEdit} defaultValue={text} />}
+      {open && (
+        <CommentForm 
+          onSave={handleEdit} 
+          defaultValue={text} 
+          className={classes.form} 
+        />
+      )}
     </Box>
   );
 }

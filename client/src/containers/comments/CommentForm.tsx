@@ -46,10 +46,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type Props = { 
   onSave: (values: CommentFormValues) => void; 
-  defaultValue?: string; 
+  defaultValue?: string;
+  className?: string; 
 };
 
-const CommentForm = ({ onSave, defaultValue }: Props) => {
+const CommentForm = ({ onSave, defaultValue, className }: Props) => {
   const classes = useStyles();
 
 	// const dispatch = useDispatch();
@@ -66,9 +67,9 @@ const CommentForm = ({ onSave, defaultValue }: Props) => {
     onSave(values);
     reset(values);
   };
-
+  
   return (
-    <Box display="flex" alignItems="center">
+    <Box display="flex" alignItems="center" className={className}>
       <Avatar text="T" className={classes.avatar} />
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
         <FormField 
