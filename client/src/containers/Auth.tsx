@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-		backgroundColor: theme.palette.primary.main,
+		backgroundColor: theme.palette.secondary.main,
 		height: '100vh'
   },
 	card: {
