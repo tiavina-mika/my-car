@@ -56,7 +56,7 @@ const Comments = ({ comments, onAdd }: Props) => {
       }
     >
       <CommentForm onSave={onAdd} />
-      {comments && comments.length && comments.map((comment: CommentType, index: number) => (
+      {comments && comments.length > 0 && comments.map((comment: CommentType, index: number) => (
         <Fragment key={comment.id}>
             {/* -----------------------------------------  */}
             {/* ------------ comments details ------------ */}

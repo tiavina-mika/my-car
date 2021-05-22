@@ -10,7 +10,9 @@ import { grey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
+import { useDispatch } from 'react-redux';
 
+import { createComment } from '../../actions/comments';
 import { Car as CarType } from '../../types/car';
 import { CommentFormValues } from '../../types/comment';
 import Comments from '../comments/Comments';
@@ -39,10 +41,12 @@ const Car = ({ car, className }: Props) => {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
+
   const toggle = () => setOpen(prev => !prev);
   
   const addComment = (values: CommentFormValues) => {
-    console.log(car.id, values);
+    dispatch(createComment(car.id, values));
   }
 
   return (
