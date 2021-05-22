@@ -52,7 +52,7 @@ export const closeMessage = (): Close => ({ type: 'CLOSE_MESSAGE' });
 export const showResponseError = (result: ApiResponseError): AppDispatch => (dispatch: any) => {
   if (!result.error) return;
   showError(result.message)(dispatch);
-  return;
+  
 };
 
 // --------------------------------------------------------//

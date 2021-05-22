@@ -1,6 +1,7 @@
 import React from 'react';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
 import { IconButton } from '@material-ui/core';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 type Props = { onShowPreview: any; className: string };
 

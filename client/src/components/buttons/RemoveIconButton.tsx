@@ -1,6 +1,7 @@
 import React from 'react';
-import RemoveIcon from '@material-ui/icons/Remove';
+
 import { IconButton } from '@material-ui/core';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 type Props = { onRemove: any; color: 'default' | 'primary'| 'secondary'; className: string };
 

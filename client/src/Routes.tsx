@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router';
 import Home from './containers/Home';
 // import Login from './containers/login/Login';
 import Logout from './containers/Logout';
-
 import Signup from './containers/signup/Signup';
 import MainRoute from './MainRoute';
 
@@ -22,7 +21,7 @@ const Routes = () => {
 
         {/* <PrivateRoutes path="/dashboard" component={Home} exact />
         <PrivateRoutes path="/dashboard/profile" component={Profile} exact />
-        <PrivateRoutes path="/dashboard/changer-mot-de-passe" component={ChangePassword} exact />*/}
+        <PrivateRoutes path="/dashboard/changer-mot-de-passe" component={ChangePassword} exact /> */}
 
         <Route path="/logout" component={Logout} />
       </Switch>

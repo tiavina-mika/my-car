@@ -27,7 +27,7 @@ const SignupForm = () => {
 				type="email"
 				name="email" 
 				label="Email"
-				required={true}
+				required
 			/>
 
 			<FormField 
@@ -36,7 +36,7 @@ const SignupForm = () => {
 				type="password"
 				name="password" 
 				label="Mot de passe"
-				required={true}
+				required
 			/>
 
 			<FormField 
@@ -45,7 +45,7 @@ const SignupForm = () => {
 				type="password"
 				name="confirmPassword" 
 				label="Confirmer mot de passe"
-				required={true}
+				required
 			/>
 
 			<SubmitButton text="Créer le compte" />

@@ -10,7 +10,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import WarningIcon from '@material-ui/icons/Warning';
 import clsx from 'clsx';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
 	success: {
 		backgroundColor: '#1FA086',
 	},
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 		display: 'flex',
 		alignItems: 'center',
 	},
-}));
+});
 
 const variantIcon = {
 	success: CheckCircleIcon,

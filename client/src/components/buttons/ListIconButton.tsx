@@ -1,6 +1,7 @@
 import React from 'react';
-import ViewListIcon from '@material-ui/icons/ViewList';
+
 import { IconButton } from '@material-ui/core';
+import ViewListIcon from '@material-ui/icons/ViewList';
 
 type Props = { onShowList: any; className: string };
 

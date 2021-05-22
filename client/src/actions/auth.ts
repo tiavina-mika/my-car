@@ -82,7 +82,7 @@ const deleteTokenFromUser = (user: UserResponse) => {
  * @returns 
  */
 export const loginSuccess = (user: UserResponse): any => actionWithLoader(async (dispatch: AppDispatch, getState: any) => {
-  let currentUser = user || getCurrentUser(getState());
+  const currentUser = user || getCurrentUser(getState());
   
   if (currentUser) {
     // remove the token from store

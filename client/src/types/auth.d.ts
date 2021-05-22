@@ -1,5 +1,5 @@
 import { ApiResponseSuccess } from './app.d';
-import { User } from "./user";
+import { User } from './user';
 
 export interface LoginFormValues {
 	email: string;
@@ -20,11 +20,6 @@ export interface LoginApiResponse {
 }
 
 export interface SignupApiResponse extends ApiResponseSuccess {}
-
-export interface LogoutApiResponse {
-	success: boolean;
-	message: string;
-}
 
 export interface LogoutApiResponse extends ApiResponseSuccess {
 	id: string;
