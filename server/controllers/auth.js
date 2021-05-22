@@ -79,7 +79,7 @@ const login = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      user: { id: user._id, email: user.email, token },
+      user: { ...user, id: user._id, token },
     });
   } catch (error) {
     console.error('login error', error);
@@ -111,6 +111,7 @@ const logout = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: 'Logged out successfully',
+      id: user._id,
     });
   } catch (error) {
     console.error('logout error: ', error);

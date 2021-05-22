@@ -12,6 +12,14 @@ import Car from '../models/car';
 const carById = async (req, res, next, id) => {
   try {
       const car = await Car.findById(id).exec();
+
+      if (!car) {
+        return res.status(400).json({
+          error: true,
+          message: 'Id not found',
+        });
+      }
+      
       req.car = car;
       next();
   } catch (error) {

@@ -5,12 +5,10 @@ import jwt from 'jsonwebtoken';
 import { formatReturnedJSON } from '../config/db';
 
 const UserSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  active: { type: Boolean, default: false },
-  password: { type: String, required: true },
-  token: { type: String },
-  resetPasswordToken: { type: String, default: null },
-  resetPasswordExpires: { type: Date, default: null },
+    email: { type: String, required: true, unique: true },
+    active: { type: Boolean, default: false },
+    password: { type: String, required: true },
+    token: { type: String },
   },
   { timestamps: true }
 );
