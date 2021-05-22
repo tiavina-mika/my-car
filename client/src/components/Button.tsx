@@ -36,7 +36,7 @@ type Props = {
   error?: boolean;
   classes?: any;
   startIcon?: ReactNode;
-  type: any;
+  type?: any;
 };
 
 const Button = ({

@@ -1,9 +1,8 @@
 import { Reducer } from 'react';
 
 import { connectRouter, LocationChangeAction, RouterState } from 'connected-react-router';
-import { History, LocationState, createBrowserHistory } from 'history';
+import { History, Location, createBrowserHistory } from 'history';
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 
 import { RootState } from '../store';
 import appReducer from './app';
@@ -20,11 +19,10 @@ const appReducers = {
 
 const createRootReducer = (history: History) => combineReducers({
   ...appReducers,
-  form: formReducer,
   // router: connectRouter(history),
   router: (connectRouter(history) as any) as Reducer<
-    RouterState<LocationState>,
-    LocationChangeAction<LocationState>
+    RouterState<Location>,
+    LocationChangeAction<Location>
   >,
 });
 
