@@ -50,7 +50,7 @@ const Comments = ({ comments, onAdd }: Props) => {
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
           Commentaires (
-            {comments?.length}
+            {comments?.length || 0}
           )
         </ListSubheader>
       }
