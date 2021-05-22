@@ -4,10 +4,11 @@ import { ApiResponseError } from '../types/app';
 import { SignupFormValues, LoginFormValues, SignupApiResponse, LoginApiResponse, LogoutApiResponse } from '../types/auth';
 import { Car, CarApiResponse, PartialCarFormValues } from '../types/car';
 import { CommentFormValues } from '../types/comment';
+import { getUrl } from './utils';
 
 
 const instance = axios.create({
-	baseURL: 'http://localhost:4200/',
+  baseURL: getUrl(true),
 });
 
 const responseBody = (response: AxiosResponse) => response.data;
