@@ -7,12 +7,11 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "npm run compile && node ./dist/index.js",
+    "start": "npm run build && node ./dist/index.js",
     "dev": "nodemon --exec babel-node ./index.js",
-    "compile": "npm run clean && npm run build-babel",
+    "build": "npm run clean && npm run build-babel",
     "clean": "rm -rf dist && mkdir dist",
-    "build-babel": "babel . --out-dir dist --ignore node_modules",
-    "prepare:deploy": "cd .. && git subtree split --prefix server -b deploy && git add . && git commit -m 'prepare deploy' && git push -u origin deploy"
+    "build-babel": "babel . --out-dir dist --ignore node_modules"
   },
   "author": "tiavina-mika",
   "license": "ISC",
