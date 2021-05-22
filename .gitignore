@@ -84,7 +84,6 @@ package-lock.json
 
 # Nuxt.js build / generate output
 .nuxt
-server
 
 # Gatsby files
 .cache/
