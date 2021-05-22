@@ -17,7 +17,7 @@ import Comments from '../comments/Comments';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    maxWidth: 560,
+    width: 600,
     borderRadius: 10,
   },
   media: {
