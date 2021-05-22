@@ -58,7 +58,11 @@ const Comments = ({ comments, onAdd, car }: Props) => {
         </ListSubheader>
       }
     >
+      {/* --------------------------------------------------  */}
+      {/* ------------ comment form for creation ------------ */}
+      {/* --------------------------------------------------  */}
       <CommentForm onSave={onAdd} />
+
       {comments && comments.length > 0 && comments.map((comment: CommentType, index: number) => (
         <Fragment key={comment.id}>
             {/* -----------------------------------------  */}
