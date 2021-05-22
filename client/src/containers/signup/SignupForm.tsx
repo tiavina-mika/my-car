@@ -2,7 +2,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { signup } from '../../actions/auth';
-import Button from '../../components/Button';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import FormField from '../../components/form/FormField';
 import { SignupFormValues } from '../../types/auth';
@@ -16,9 +15,9 @@ const SignupForm = () => {
     formState: { errors }
   } = useForm<SignupFormValues>();
 
-  const onSubmit: SubmitHandler<SignupFormValues> = (values) => {
+  const onSubmit: SubmitHandler<SignupFormValues> = (values: SignupFormValues) => {
     dispatch(signup(values));
-  }; // your form submit function which will invoke after successful validation
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -43,7 +42,7 @@ const SignupForm = () => {
 			<FormField 
 				register={register} 
 				errors={errors} 
-				type="confirmPassword"
+				type="password"
 				name="confirmPassword" 
 				label="Confirmer mot de passe"
 				required={true}
