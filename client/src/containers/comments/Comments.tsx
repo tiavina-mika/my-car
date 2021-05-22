@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { Box, Button, ListSubheader } from '@material-ui/core';
+import { ListSubheader } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -13,6 +13,7 @@ import { Comment as CommentType, CommentFormValues } from '../../types/comment';
 import ButtonActions from './ButtonsAction';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
+import NotConnectedMessage from './NotLoggedInMessage';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,13 +68,7 @@ const Comments = ({ comments, onAdd, car }: Props) => {
       {/* --------------------------------------------------  */}
       {currrentUser
         ? <CommentForm onSave={onAdd} />
-        : (
-          <Box>
-            <Button>
-              Veuillez-vous connecter pour pouvoir connecter
-            </Button>
-          </Box>
-        )}
+        : <NotConnectedMessage />}
 
       {comments && comments.length > 0 && comments.map((comment: CommentType, index: number) => (
         <Fragment key={comment.id}>
