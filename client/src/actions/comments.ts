@@ -35,28 +35,6 @@ export const createComment = (carId: string, values: CommentFormValues): AppThun
   });
 };
 
-/**
- * delete a comment
- * @param {Car} car
- * @param {string} id
- * @returns {Promise<*>}
- */
-export const deleteComment = (car: Car, id: string): AppThunk => {
-  return actionWithLoader(async (dispatch: AppDispatch, getState: () => RootState) => {
-    const cars: Car[] = getCars(getState());
-    const newCars: Car[] = cars.filter((p: Car): boolean => p !== car);
-
-    await COMMENT_API.deleteComment(car.id, id);
-
-    dispatch({
-      type: 'CARS_UPDATED', // used in cars list
-      cars: newCars,
-    });
-
-    dispatch(showMessage(`${car.name})} supprimé avec succès`, 'success'));
-  });
-};
-
 
 // ------------------------------------------------------------------- //
 // ------------------------------ THUNK ------------------------------ //
@@ -85,6 +63,27 @@ export const updateCommentThunk = (car: Car, id: string, body: CommentFormValues
   };
 };
 
+/**
+ * update a car's comment
+ * @param {Car} car
+ * @param {string} id
+ * @param {CommentFormValues} body
+ * @returns {Promise<*>}
+ */
+ export const deleteCommentThunk = (car: Car, id: string): (dispatch: AppDispatch, getState: () => RootState) => Promise<void> => {
+  return async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
+    const cars: Car[] = getCars(getState());
+    const newCars: Car[] = cars.filter((p: Car): boolean => p !== car);
+
+    await COMMENT_API.deleteComment(car.id, id);
+
+    dispatch({
+      type: 'CARS_UPDATED', // used in cars list
+      cars: newCars,
+    });
+  };
+};
+
 
 
 // --------------------------------------------------------//
@@ -101,5 +100,17 @@ export const updateCommentThunk = (car: Car, id: string, body: CommentFormValues
 export const updateComment = (car: Car, id: string, values: CommentFormValues): AppThunk => {
   return actionWithLoader(async (dispatch: AppDispatch) => {
     await updateCommentThunk(car, id, values)(dispatch);
+  });
+};
+
+/**
+ * delete a comment
+ * @param {Car} car
+ * @param {string} id
+ * @returns {Promise<*>}
+ */
+ export const deleteComment = (car: Car, id: string): AppThunk => {
+  return actionWithLoader(async (dispatch: AppDispatch, getState: () => RootState) => {
+    await deleteCommentThunk(car, id)(dispatch, getState);
   });
 };
