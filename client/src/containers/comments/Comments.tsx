@@ -66,30 +66,36 @@ const Comments = ({ comments, onAdd, car }: Props) => {
       {/* --------------------------------------------------  */}
       {/* ------------ comment form for creation ------------ */}
       {/* --------------------------------------------------  */}
+      {/* only logged user can add a comment */}
       {currrentUser
         ? <CommentForm onSave={onAdd} />
         : <NotConnectedMessage />}
 
       {comments && comments.length > 0 && comments.map((comment: CommentType, index: number) => (
         <Fragment key={comment.id}>
-            {/* -----------------------------------------  */}
-            {/* ------------ comments details ------------ */}
-            {/* -----------------------------------------  */}
-            <Comment comment={comment}  />
+          {/* -----------------------------------------  */}
+          {/* ------------ comments details ------------ */}
+          {/* -----------------------------------------  */}
+          <Comment comment={comment}  />
 
-            {/* --------------------------------------- */}
-            {/* ------------ button actions ----------- */}
-            {/* --------------------------------------- */}
-            <ButtonActions id={comment.id} text={comment.text} car={car} />
+          {/* --------------------------------------- */}
+          {/* ------------ button actions ----------- */}
+          {/* --------------------------------------- */}
+          {/* the current logged user only can delete and update its own comment */}
+          {currrentUser?.id === comment.postedBy.id && (
+            <ButtonActions 
+              id={comment.id} 
+              text={comment.text} 
+              car={car} 
+            />
+          )}
 
-            {/* -------------------------------- */}
-            {/* ------------ divider ----------- */}
-            {/* -------------------------------- */}
-            {comments.length - 1 !== index && <Divider variant="inset" component="li" />}
-
-          </Fragment>
+          {/* -------------------------------- */}
+          {/* ------------ divider ----------- */}
+          {/* -------------------------------- */}
+          {comments.length - 1 !== index && <Divider variant="inset" component="li" />}
+        </Fragment>
       ))}
-      
     </List>
   );
 }
