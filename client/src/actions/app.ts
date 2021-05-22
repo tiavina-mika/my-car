@@ -2,7 +2,6 @@ import { push } from 'connected-react-router';
 
 import {  AppThunk, AppDispatch } from '../store';
 import {  ApiResponseError, Variant } from '../types/app.d';
-import { LogoutApiResponse } from '../types/auth';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 const CONNECTION_FAILED = 'Votre connexion semble dégradée, vérifiez-là puis actualisez la page.';
