@@ -3,7 +3,10 @@ import { useCallback, useState } from 'react';
 import { Box, Button } from '@material-ui/core';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import { useDispatch, useStore } from 'react-redux';
 
+import { deleteCommentThunk, updateCommentThunk } from '../../actions/comments';
+import { Car } from '../../types/car';
 import { CommentFormValues } from '../../types/comment';
 import CommentForm from './CommentForm';
 
@@ -28,19 +31,27 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type Props = { id: string; text?: string; };
-const ButtonActions = ({ id, text }: Props) => {
+type Props = { 
+  id: string; 
+  text?: string;
+  car: Car;
+};
+
+const ButtonActions = ({ id, text, car }: Props) => {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
+  const store = useStore();
+
   const toggle = useCallback(() => setOpen(prev => !prev), [setOpen]);
 
-  const handleDelete = (id: string) => {
-    console.log(id);
-  }
+  const handleDelete = useCallback((id: string) => {
+    deleteCommentThunk(car, id)(dispatch, store.getState);
+  }, [car, store, dispatch]);
 
   const handleEdit = useCallback((values: CommentFormValues) => {
-    console.log({ id, values });
+    updateCommentThunk(car, id, values)(dispatch);
     toggle();
   }, [id, toggle]);
 

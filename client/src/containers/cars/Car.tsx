@@ -98,7 +98,11 @@ const Car = ({ car, className }: Props) => {
         </CardContent>
         {open && (
           <CardActions>
-            <Comments comments={car.comments} onAdd={addComment} />
+            <Comments
+              car={car}
+              comments={car.comments} 
+              onAdd={addComment} 
+            />
           </CardActions>
         )}
     </Card>

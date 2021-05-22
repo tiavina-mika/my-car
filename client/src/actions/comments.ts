@@ -3,7 +3,7 @@ import { AppThunk, AppDispatch, RootState } from '../store';
 import { Car } from '../types/car';
 import { CommentFormValues } from '../types/comment';
 import { COMMENT_API } from './api';
-import { showMessage, showResponseError } from './app';
+import { showResponseError } from './app';
 import {  actionWithLoader  } from './utils';
 
 
@@ -60,7 +60,6 @@ export const updateCommentThunk = (car: Car, id: string, body: CommentFormValues
       car,
     });
 
-    dispatch(showMessage(`${car.name} modifié avec succès`, 'success'));
   };
 };
 

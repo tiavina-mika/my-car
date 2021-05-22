@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 
+import { Car } from '../../types/car';
 import { Comment as CommentType, CommentFormValues } from '../../types/comment';
 import ButtonActions from './ButtonsAction';
 import Comment from './Comment';
@@ -36,12 +37,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
 type Props = { 
   comments?: CommentType[]; 
-  onAdd: (values: CommentFormValues) => void 
+  onAdd: (values: CommentFormValues) => void;
+  car: Car;
 };
 
-const Comments = ({ comments, onAdd }: Props) => {
+const Comments = ({ comments, onAdd, car }: Props) => {
   const classes = useStyles();
 
   return (
@@ -66,7 +69,7 @@ const Comments = ({ comments, onAdd }: Props) => {
             {/* --------------------------------------- */}
             {/* ------------ button actions ----------- */}
             {/* --------------------------------------- */}
-            <ButtonActions id={comment.id} text={comment.text} />
+            <ButtonActions id={comment.id} text={comment.text} car={car} />
 
             {/* -------------------------------- */}
             {/* ------------ divider ----------- */}
