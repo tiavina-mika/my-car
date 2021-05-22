@@ -8,7 +8,6 @@ import { CommentFormValues } from '../types/comment';
 
 const instance = axios.create({
 	baseURL: 'http://localhost:4200/',
-	timeout: 15000,
 });
 
 const responseBody = (response: AxiosResponse) => response.data;

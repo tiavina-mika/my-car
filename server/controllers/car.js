@@ -111,7 +111,7 @@ const remove = async (req, res) => {
  * @param {*} res 
  * @returns {*}
  */
-const findAll = async (_, res) => {
+const findAll = async (req, res) => {
   try {
     const cars = await Car.find().exec();
 

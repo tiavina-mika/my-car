@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { ValidationError } from 'express-validation';
 const mongoSanitize = require('express-mongo-sanitize');
 
@@ -16,6 +17,7 @@ const app = express();
 // connect and run database
 connectDB();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
