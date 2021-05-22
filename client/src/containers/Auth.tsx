@@ -13,9 +13,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 	card: {
 		minWidth: 300,
-		maxWidth: '30vw',
+		maxWidth: '35vw',
 		boxShadow: '0 0 15px 0 rgba(6,48,62,0.05)',
 		borderRadius: 8,
+		padding: `${theme.spacing(3)}px ${theme.spacing(9)}px`,
 	},
 	button: {
 		width: '100%',
