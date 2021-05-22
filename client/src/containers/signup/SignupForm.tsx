@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { signup } from '../../actions/auth';
 import Button from '../../components/Button';
+import SubmitButton from '../../components/buttons/SubmitButton';
 import FormField from '../../components/form/FormField';
 import { SignupFormValues } from '../../types/auth';
 
@@ -48,7 +49,7 @@ const SignupForm = () => {
 				required={true}
 			/>
 
-			<Button type="submit" text="Créer le compte" />
+			<SubmitButton text="Créer le compte" />
     </form>
   );
 }

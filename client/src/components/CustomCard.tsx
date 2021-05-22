@@ -18,6 +18,7 @@ import Button from './Button';
 const useStyles = makeStyles({
   root: {
     minWidth: '45vw',
+    boxShadow: '0 0 15px 0 rgba(6,48,62,0.05)',
   },
   header: {
     width: '100%',

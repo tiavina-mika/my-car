@@ -26,9 +26,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   }));
 
-type Props = {
+type ButtonProps = {
   variant?: 'contained' | 'outlined' | 'text';
-  color?: 'primary' | 'secondary';
+  color?: 'primary' | 'secondary' | 'default';
   disabled?: boolean;
   text?: string;
   className?: string;
@@ -37,6 +37,7 @@ type Props = {
   classes?: any;
   startIcon?: ReactNode;
   type?: any;
+  fullWidth?: boolean;
 };
 
 const Button = ({
@@ -50,7 +51,8 @@ const Button = ({
   classes,
   startIcon,
   type,
-}: Props) => {
+  fullWidth,
+}: ButtonProps) => {
   const muiClasses = useStyles();
 
   return (
@@ -59,6 +61,7 @@ const Button = ({
       variant={variant}
       color={color}
       disabled={disabled}
+      fullWidth={fullWidth}
       className={clsx(className, muiClasses.button)}
       classes={{
         ...classes, 
