@@ -1,7 +1,6 @@
 import { SyntheticEvent } from 'react';
 
 import { Box, Link, Typography } from '@material-ui/core';
-import { grey } from '@material-ui/core/colors';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 
 
