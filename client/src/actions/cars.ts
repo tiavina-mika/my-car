@@ -38,8 +38,8 @@ export const createCar = (values: PartialCarFormValues): AppThunk => {
 
 /**
  * delete current car
- * @param car
- * @returns {*}
+ * @param {Car} car
+ * @returns {Promise<*>}
  */
 export const deleteCar = (car: Car): AppThunk => {
   return actionWithLoader(async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -63,8 +63,10 @@ export const deleteCar = (car: Car): AppThunk => {
 // ------------------------------------------------------------------- //
 
 /**
- * saves and updates car
- * @param {Object} car
+ * save and update car
+ * @param {Car} car
+ * @param {PartialCarFormValues} values
+ * @returns {Promise<*>}
  */
 export const updateCarThunk = (car: Car, values: PartialCarFormValues): (dispatch: AppDispatch) => Promise<void> => {
   return async (dispatch: AppDispatch): Promise<void> => {
@@ -135,8 +137,8 @@ export const loadCarThunk = (id: string): (dispatch: AppDispatch, getState: () =
 
 /**
  * update current car
- * @param car
- * @param values
+ * @param {Car} car
+ * @param {PartialCarFormValues} values
  * @returns {*}
  */
 export const updateCar = (car: Car, values: PartialCarFormValues): AppThunk => {

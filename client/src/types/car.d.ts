@@ -29,9 +29,7 @@ export interface CarAction {
   count?: number;
 }
 
-export interface CarFormValues {
-  name: string;
-}
+export interface CarFormValues extends Omit<Car, 'createdAt' | 'updatedAt' | 'id'>{};
 
 export type PartialCarFormValues = Partial<CarFormValues>;
 

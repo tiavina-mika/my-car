@@ -28,11 +28,10 @@ export const CAR_API = {
 };
 
 export const COMMENT_API = {
-	createComment: (carId: string, body: CommentFormValues): Promise<Car> => requests.post(`api/cars/${carId}/comment`, body),
-	updateComment: (carId: string, id: string, body: CommentFormValues): Promise<Car> => requests.put(`api/cars/${carId}/comment/${id}`, body),
-	deleteComment: (carId: string, id: string): Promise<Car> => requests.delete(`api/cars/${carId}/comment/${id}`),
+	createComment: (carId: string, body: CommentFormValues): Promise<CarApiResponse> => requests.post(`api/cars/${carId}/comment`, body),
+	updateComment: (carId: string, id: string, body: CommentFormValues): Promise<CarApiResponse> => requests.put(`api/cars/${carId}/comment/${id}`, body),
+	deleteComment: (carId: string, id: string): Promise<CarApiResponse> => requests.delete(`api/cars/${carId}/comment/${id}`),
 };
-
 
 export const AUTH_API = {
 	signup: (body: SignupFormValues): Promise<SignupApiResponse & ApiResponseError> => requests.post('users/signup', body),
