@@ -1,11 +1,13 @@
 import { Fragment } from 'react';
 
-import { ListSubheader } from '@material-ui/core';
+import { Box, Button, ListSubheader } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 
+import { getCurrentUser } from '../../reducers/app';
 import { Car } from '../../types/car';
 import { Comment as CommentType, CommentFormValues } from '../../types/comment';
 import ButtonActions from './ButtonsAction';
@@ -47,6 +49,8 @@ type Props = {
 const Comments = ({ comments, onAdd, car }: Props) => {
   const classes = useStyles();
 
+  const currrentUser = useSelector(getCurrentUser);
+
   return (
     <List
       className={classes.root}
@@ -61,7 +65,15 @@ const Comments = ({ comments, onAdd, car }: Props) => {
       {/* --------------------------------------------------  */}
       {/* ------------ comment form for creation ------------ */}
       {/* --------------------------------------------------  */}
-      <CommentForm onSave={onAdd} />
+      {currrentUser
+        ? <CommentForm onSave={onAdd} />
+        : (
+          <Box>
+            <Button>
+              Veuillez-vous connecter pour pouvoir connecter
+            </Button>
+          </Box>
+        )}
 
       {comments && comments.length > 0 && comments.map((comment: CommentType, index: number) => (
         <Fragment key={comment.id}>

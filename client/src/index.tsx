@@ -15,6 +15,11 @@ import './styles.css';
 /* eslint-disable global-require */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 const render = () => {
+  const { location } = window;
+	// LOCAL can also mean "accessed by a remote machine (like a Mac) on the local dev network"
+	const hostName = location.hostname;
+	(window as any).LOCAL = hostName.indexOf('my-car') === -1;
+
   const Routes = require('./Routes').default;
   const wrapper = document.getElementById('root');
 
