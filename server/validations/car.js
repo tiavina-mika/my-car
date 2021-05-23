@@ -8,9 +8,9 @@ import { Joi } from 'express-validation';
 const validateBody = (otherValues) => {
   return {
     body: Joi.object({
-      name: Joi.string().required(),
+      name: Joi.string().max(50).required(),
       shortDesc: Joi.string().required(),
-      year: Joi.string().required(),
+      year: Joi.string().required().max(4),
       distance: Joi.string().required(),
       fuel: Joi.string(),
       gearbox: Joi.string(),

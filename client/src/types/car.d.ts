@@ -11,7 +11,7 @@ export interface Car {
   shortDesc: string;
   year: string;
   distance: string;
-  fuel: 'Essence' | 'Diesel' | 'Electrique' | 'Hybride';
+  fuel: 'Essence' | 'Diesel' | 'Electrique' | 'Hybride' | 'Solaire' | 'Hydrogène';
   gearbox: 'Manuelle' | 'Automatique';
   price: string;
   image?: string;

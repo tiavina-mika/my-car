@@ -24,13 +24,6 @@ const signup = async (req, res) => {
 
     const newUser = new User(req.body);
 
-    const errors = newUser.validateSync();
-
-    return res.status(200).json({
-      error: true,
-      errors,
-    });
-
     await newUser.save();
 
     return res.status(200).json({
