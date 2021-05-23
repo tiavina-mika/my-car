@@ -3,9 +3,6 @@ import 'moment/locale/fr';
 
 import { TOKEN_NAME } from './constants';
 
-// --------------------------------------------------------//
-// ----------------------- ENV ----------------------------//
-// --------------------------------------------------------//
 /* eslint-disable func-names */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 
