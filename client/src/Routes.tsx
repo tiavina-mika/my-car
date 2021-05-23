@@ -1,22 +1,20 @@
 import { Route, Switch } from 'react-router';
 
+import Auth from './containers/auth/Auth';
 import Home from './containers/Home';
-// import Login from './containers/login/Login';
 import Logout from './containers/Logout';
-import Signup from './containers/signup/Signup';
 import MainRoute from './MainRoute';
-
+import { LOGIN_PATHNAME } from './utils/constants';
 
 const Routes = () => {
-
   return (
       <Switch>
         <MainRoute path="/" component={Home} exact />
-        {/* <Route path="/login" exact>
-          <Login />
-        </Route>         */}
+        <Route path={LOGIN_PATHNAME} exact>
+          <Auth />
+        </Route>        
         <Route path="/signup" exact>
-          <Signup />
+          <Auth />
         </Route>  
 
         {/* <PrivateRoutes path="/dashboard" component={Home} exact />

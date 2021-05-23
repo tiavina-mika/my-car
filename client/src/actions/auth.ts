@@ -2,8 +2,9 @@ import { push } from 'connected-react-router';
 
 import { getCurrentUser } from '../reducers/app';
 import { AppThunk, AppDispatch } from '../store';
-import { SignupFormValues, UserResponse } from '../types/auth.d';
+import { LoginFormValues, SignupFormValues, UserResponse } from '../types/auth.d';
 import { User } from '../types/user';
+import { LOGIN_PATHNAME } from '../utils/constants';
 import { AUTH_API } from './api';
 import { goToHome, showResponseError } from './app';
 import { actionWithLoader } from './utils';
@@ -13,7 +14,7 @@ import { actionWithLoader } from './utils';
 // ---------------------- Routing -------------------------//
 // --------------------------------------------------------//
 
-export const goToLogin = () => push('/login');
+export const goToLogin = () => push(LOGIN_PATHNAME);
 export const goToSignup = () => push('/signup');
 
 
@@ -101,13 +102,13 @@ export const loginSuccess = (user: UserResponse): any => actionWithLoader(async 
 
 /**
  * login the user after form validation
- * @param {string} email 
+ * @param {LoginFormValues} values { email, password } 
  * @param {string} password 
  * @returns 
  */
-export const login = (email: string, password: string): AppThunk => 
+export const login = (values: LoginFormValues): AppThunk => 
   actionWithLoader(async (dispatch: AppDispatch, getState: any): Promise<void> => {
-    const result = await AUTH_API.login({ email, password });
+    const result = await AUTH_API.login(values);
 
     // if there are errors
     showResponseError(result)(dispatch);
@@ -119,7 +120,7 @@ export const login = (email: string, password: string): AppThunk =>
 
 /**
  * signup after form validation
- * @param {SignupFormValues} values 
+ * @param {SignupFormValues} values { email, password, confirmPassord } 
  * @returns 
  */
 export const signup = (values: SignupFormValues): AppThunk => actionWithLoader(async (dispatch: AppDispatch) => {
