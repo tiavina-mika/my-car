@@ -9,9 +9,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       textTransform: 'inherit',
       fontWeight: 'normal',
       borderRadius: 4,
-      '&:hover': {
-        backgroundColor: 'transparent',
-      },
     },
     outlined: {
       borderColor: '#e4e5e6',

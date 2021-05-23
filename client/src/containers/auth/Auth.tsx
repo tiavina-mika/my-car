@@ -75,15 +75,15 @@ const Auth = () => {
 		const signupTitle: string = 'Créer un compte';
 		let browserTitle: string = signupTitle;
 		let pageTitle: string = signupTitle;
-		let link: string = SIGNUP_PATHNAME;
-		let labelLink: string = 'Pas encore de compte ?';
+		let link: string = LOGIN_PATHNAME;
+		let labelLink: string = 'Déjà un compte ?';
 		let form: ReactNode = <SignupForm />;
 
 		if (isLoginPage) {
 			browserTitle = 'Se connecter';
 			pageTitle = 'Connexion';
-			link = LOGIN_PATHNAME;
-			labelLink = 'Déjà un compte ?';
+			link = SIGNUP_PATHNAME;
+			labelLink = 'Pas encore de compte ?';
 			form = <LoginForm />;
 		}
 

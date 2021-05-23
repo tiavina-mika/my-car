@@ -18,7 +18,13 @@ type Props = {
   className?: string;
 };
 
-const SubmitButton = ({ text, color = 'primary', className, variant = 'contained', fullWidth = true }: Props) => {
+const SubmitButton = ({ 
+  text, 
+  color = 'primary', 
+  className, 
+  variant = 'contained',
+  fullWidth = true 
+}: Props) => {
   const classes = useStyles();
 
   return (
