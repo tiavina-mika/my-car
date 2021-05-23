@@ -31,17 +31,24 @@ app.use('/api', carRouter);
 app.use('/api', commentRouter);
 app.use('/users', authRouter);
 
-// valiadion
+// ---------------------------- //
+// ---------- Errors ---------- //
+// ---------------------------- //
+// params and body validation middleware
 app.use((err, req, res, next) => {
   if (err instanceof ValidationError) {
-    res.status(err.statusCode).json(err);
+    // custom error
+    const errorResponse = getApiCustomError(err);
+    res
+      .status(err.statusCode)
+      .json(errorResponse);
   } else {
-    res.status(500)
-      .json(err);
+    res.status(500).json(err);
   }
 });
 
 const PORT = process.env.PORT || 4200;
+
 app.listen(PORT, () => {
   console.log('server running at port ' + PORT);
 });
