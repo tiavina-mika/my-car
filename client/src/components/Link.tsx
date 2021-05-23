@@ -25,8 +25,8 @@ type Props = {
   textAfter?: string; 
   label?: string | ReactNode;
   href?: string; // 'eg /login'
+  rootClassName?: string;
   className?: string;
-  linkClassName?: string;
   isPreventDefault?: boolean;
 }
 const Link = ({
@@ -34,8 +34,8 @@ const Link = ({
   textAfter,
   label,
   href,
+  rootClassName,
   className,
-  linkClassName,
   isPreventDefault,
 }: Props) => {
   const classes = useStyles();
@@ -43,7 +43,7 @@ const Link = ({
   const preventDefault = (event: SyntheticEvent) => event.preventDefault();
 
   return (
-    <Typography className={className}>
+    <Typography className={rootClassName}>
       {textBefore}
       <MUILink 
         href={getUrl() + href} 
@@ -52,7 +52,7 @@ const Link = ({
           textBefore ? classes.leftText: undefined,
           textAfter ? classes.rightText: undefined,
           classes.link,
-          linkClassName,
+          className,
         )}
       >
         {label}

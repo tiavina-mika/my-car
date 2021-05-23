@@ -1,12 +1,11 @@
+import { Slide, useScrollTrigger } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
 
-import { LOGIN_PATHNAME } from '../utils/constants';
 import Button from './Button';
 import Link from './Link';
 
@@ -15,19 +14,30 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       composes: 'stretchSelf',
     },
-    title: {
+    appBar: {
+      backgroundColor: '#fff',
+      color: '#000',
+      paddingTop: theme.spacing(0.8),
+      paddingBottom: theme.spacing(0.8),
+      boxShadow: '0 12px 24px 0 rgb(0 0 0 / 8%)',
+    },
+    logoContainer: {
       flexGrow: 1,
       display: 'none',
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
     },
+    logo: {
+      textDecoration: 'none',
+    },
     search: {
       position: 'relative',
+      padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      backgroundColor: fade(theme.palette.secondary.main, 1),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: fade(theme.palette.secondary.main, 0.75),
       },
       marginLeft: 0,
       width: '100%',
@@ -44,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      top: -1.6,
     },
     inputRoot: {
       color: 'inherit',
@@ -55,22 +66,21 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('sm')]: {
-        width: '12ch',
+        width: '18ch',
         '&:focus': {
-          width: '20ch',
+          width: '24ch',
         },
       },
     },
     loginButton: {
       color: '#fff',
       textDecoration: 'none',
-      backgroundColor: '#000',
+      backgroundColor: theme.palette.primary.main,
       fontSize: 16,
-      paddingLeft: theme.spacing(2.5),
-      paddingRight: theme.spacing(2.5),
+      padding: `${theme.spacing(1.2)}px ${theme.spacing(2.5)}px`,
       marginLeft: theme.spacing(4),
       marginRight: theme.spacing(2),
-      borderRadius: 5,
+      borderRadius: 8,
       '&:hover': {
         color: theme.palette.primary.main,
         backgroundColor: '#fff'
@@ -82,33 +92,46 @@ const useStyles = makeStyles((theme: Theme) =>
 const Menu = () => {
   const classes = useStyles();
 
+  const trigger = useScrollTrigger();
+
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography className={classes.title} variant="h6">
-            Material-UI
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
+      <Slide appear={false} direction="down" in={!trigger}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            
+            {/* ----------- logo ----------- */}
+            <Link 
+              label="My Car" 
+              href="/" 
+              className={classes.logo} 
+              rootClassName={classes.logoContainer}
             />
-          </div>
-          <Button 
-            text="Connexion" 
-            className={classes.loginButton}
-            startIcon={<PersonIcon />}
-          />
-        </Toolbar>
-      </AppBar>
+
+            {/* ----------- Search input ----------- */}
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </div>
+
+            {/* ----------- Auth buttons ----------- */}
+            <Button 
+              text="Connexion" 
+              className={classes.loginButton}
+              startIcon={<PersonIcon />}
+            />
+          </Toolbar>
+        </AppBar>
+      </Slide>  
     </div>
   );
 }

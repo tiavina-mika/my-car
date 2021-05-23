@@ -39,8 +39,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 	content: {
 		composes: 'flexRow center flexCenter flex1 stretchSelf',
 		backgroundColor: theme.palette.secondary.main,
+		paddingTop: theme.spacing(8),
+		marginTop: 77,
 		flexGrow: 1,
-		padding: theme.spacing(3),
 		transition: theme.transitions.create(['width', 'margin'], {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
