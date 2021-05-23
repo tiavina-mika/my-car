@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo } from 'react';
 
 import { Box, FormHelperText, Theme } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
@@ -9,10 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
 import { goToHome } from '../../actions/app';
+import { retrieveUserFromLocalStorage } from '../../actions/auth';
 import BrowserPageDetails from '../../components/BrowserPageDetails';
 import Link from '../../components/Link';
 import { useIsActualPage } from '../../hooks/useIsActualPage';
-import { getCurrentUser, getError } from '../../reducers/app';
+import { getError } from '../../reducers/app';
 import { LOGIN_PATHNAME, SIGNUP_PATHNAME } from '../../utils/constants';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
@@ -59,17 +60,17 @@ const Auth = () => {
 	// check the route (url) path if it contain login
 	const isLoginPage = useIsActualPage(LOGIN_PATHNAME);
 
-	// selectors
-	const user = useSelector(getCurrentUser);
 	const error = useSelector(getError);
 
-	// redirection
-	if (user) {
+	// if the user is logged in, redirect to the home page
+	useEffect(() => {
+		const user = retrieveUserFromLocalStorage();
+		if (!user) return;
 		dispatch(goToHome());
-		return null;
-	}
+	}, [dispatch])
 
-	// test if login page
+
+	// it may be login or signup page
 	const auth: AuthPage = useMemo(() => {
 		
 		const signupTitle: string = 'Créer un compte';

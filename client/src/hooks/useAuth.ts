@@ -1,22 +1,23 @@
 import { useEffect } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 
 import { loginSuccess, retrieveUserFromLocalStorage } from '../actions/auth';
 import { getCurrentUser } from '../reducers/app';
 import { UserResponse } from '../types/auth';
 
 export const useAuth = () => {
-  const dispatch = useDispatch();
-  const currrentUser = useSelector(getCurrentUser);
+  const store = useStore();
+  const currentUser = useSelector(getCurrentUser);
 
   // retrieve the userFrom local storage
-  const data: UserResponse | null = retrieveUserFromLocalStorage();
 
   useEffect(() => {
+    const data: UserResponse | null = retrieveUserFromLocalStorage();
+
     // save the user to store
-    if (!currrentUser && data) {
-      dispatch(loginSuccess(data));
+    if (!currentUser && data) {
+      loginSuccess()(store.dispatch, store.getState);
     }
-  }, [dispatch, data])
+  }, [store])
 }

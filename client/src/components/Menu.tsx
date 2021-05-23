@@ -5,9 +5,10 @@ import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar';
 import PersonIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { goToLogin } from '../actions/auth';
+import { getCurrentUser } from '../reducers/app';
 import Button from './Button';
 import Link from './Link';
 
@@ -96,6 +97,7 @@ const Menu = () => {
 
   const dispatch = useDispatch();
   const trigger = useScrollTrigger();
+  const currentUser = useSelector(getCurrentUser);
 
   const _goToLogin = () => {
     dispatch(goToLogin());
@@ -131,12 +133,14 @@ const Menu = () => {
             </div>
 
             {/* ----------- Auth buttons ----------- */}
-            <Button
-              onClick={_goToLogin}
-              text="Connexion" 
-              className={classes.loginButton}
-              startIcon={<PersonIcon />}
-            />
+            {!currentUser && (
+              <Button
+                onClick={_goToLogin}
+                text="Connexion" 
+                className={classes.loginButton}
+                startIcon={<PersonIcon />}
+              />
+            )}
           </Toolbar>
         </AppBar>
       </Slide>  

@@ -64,6 +64,7 @@ const deleteTokenFromUser = (user: UserResponse) => {
   delete user.token; 
 }
 
+
 // --------------------------------------------------------//
 // ----------------------- Actions ----------------------- //
 // --------------------------------------------------------//
@@ -73,21 +74,17 @@ const deleteTokenFromUser = (user: UserResponse) => {
  * @param {UserResponse} user 
  * @returns 
  */
-export const loginSuccess = (user: UserResponse): any => actionWithLoader(async (dispatch: AppDispatch, getState: any) => {
-  const currentUser = user || getCurrentUser(getState());
-  
-  if (currentUser) {
-    // remove the token from store
-    deleteTokenFromUser(user);
+export const loginSuccess = (): any => actionWithLoader(async (dispatch: AppDispatch, getState: any) => {
+  const currentUser = retrieveUserFromLocalStorage() || getCurrentUser(getState());
 
-    dispatch({
-      type: 'LOGIN_SUCCESS',
-      user: currentUser,
-    });
+  // remove the token from store
+  deleteTokenFromUser(currentUser);
 
-    // update user into localStorage
-    updateUserIntoLocalStorage(currentUser);
-  } 
+  dispatch({
+    type: 'LOGIN_SUCCESS',
+    user: currentUser,
+  });
+
 });
 
 
@@ -104,7 +101,9 @@ export const login = (values: LoginFormValues): AppThunk =>
     // if there are errors
     showResponseError(result)(dispatch);
 
-		await loginSuccess(result)(dispatch, getState());
+    updateUserIntoLocalStorage(result);
+
+		await loginSuccess()(dispatch, getState());
     dispatch(goToHome());
 	});
 
@@ -134,7 +133,15 @@ export const signup = (values: SignupFormValues): AppThunk => actionWithLoader(a
  * @returns 
  */
 export const logout = () => actionWithLoader(async (dispatch: AppDispatch) => {
-  const result = await AUTH_API.logout();
+  const currentUser = retrieveUserFromLocalStorage();
+
+  if (!currentUser || !currentUser.token) {
+    dispatch(goToHome());
+    dispatch(showMessage('Veuillez vous connecter', 'warning'));
+    return;
+  }
+
+  const result = await AUTH_API.logout(currentUser.token);
 
   // if there are errors
   showResponseError(result)(dispatch);

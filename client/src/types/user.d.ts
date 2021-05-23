@@ -10,6 +10,7 @@ export interface User {
   createdAt: string;
   updatedAt: string;
   roles: ROLES[];
+  token?: string;
 }
 
 export interface UserState {

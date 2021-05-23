@@ -11,13 +11,26 @@ const instance = axios.create({
   baseURL: getUrl(true),
 });
 
+/**
+ * set api bearer token header
+ * @param {string} token 
+ * @returns 
+ */
+const setAuthorization = (token: string) => {
+	return {
+		headers: {
+			'Authorization': `Basic ${token}`,
+		},
+	}
+}
+
 const responseBody = (response: AxiosResponse) => response.data;
 
 const requests = {
-	get: (url: string) => instance.get(url).then(responseBody),
-	post: (url: string, body: {}) => instance.post(url, body).then(responseBody),
-	put: (url: string, body: {}) => instance.put(url, body).then(responseBody),
-	delete: (url: string) => instance.delete(url).then(responseBody),
+	get: (url: string, config?: any) => instance.get(url, config).then(responseBody),
+	post: (url: string, body: {}, config?: any) => instance.post(url, body, config).then(responseBody),
+	put: (url: string, body: {}, config?: any) => instance.put(url, body, config).then(responseBody),
+	delete: (url: string, config?: any) => instance.delete(url, config).then(responseBody),
 };
 
 export const CAR_API = {
@@ -37,5 +50,5 @@ export const COMMENT_API = {
 export const AUTH_API = {
 	signup: (body: SignupFormValues): Promise<SignupApiResponse & ApiResponseError> => requests.post('users/signup', body),
 	login: (body: LoginFormValues): Promise<UserResponse & ApiResponseError> => requests.post('users/login', body),
-	logout: (): Promise<LogoutApiResponse & ApiResponseError> => requests.get('users/logout'),
+	logout: (token: string): Promise<LogoutApiResponse & ApiResponseError> => requests.get('users/logout', setAuthorization(token)),
 };
