@@ -1,17 +1,15 @@
-import { useEffect } from 'react';
-
-import { useDispatch, useSelector } from 'react-redux';
-
 import { loadCars } from '../actions/cars';
 import { getCars } from '../reducers/cars';
+import { Car } from '../types/car';
+import { useLoadData } from './useLoadData';
 
-export const useLoadCars = () => {
-  const dispatch = useDispatch();
-  const cars = useSelector(getCars);
+export const useLoadCars = (): Car[] => {
 
-  useEffect(() => {
-    dispatch(loadCars());
-  }, [dispatch])
+  // get car list
+  const cars: Car[] = useLoadData({
+    getData: getCars,
+    loadData: loadCars,
+  });
 
   return cars;
 }
