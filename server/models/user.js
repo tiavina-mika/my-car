@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
       minLength: 6, 
       maxLength: 50, 
     },
+    roles: [{ type: String, default: 'USER', enum: ['USER', 'ADMINISTRATOR'] }],
     token: { type: String },
   },
   { timestamps: true }

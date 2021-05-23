@@ -23,6 +23,13 @@ const signup = async (req, res) => {
     }
 
     const newUser = new User(req.body);
+    const adminEmail = process.env.ADMIN_EMAIL;
+
+    if (adminEmail && adminEmail === req.body.email) {
+      newUser.roles.push('ADMINISTRATOR');
+    } else {
+      newUser.roles.push('USER');
+    }
 
     await newUser.save();
 
@@ -30,6 +37,7 @@ const signup = async (req, res) => {
       success: true,
       message: 'Registration Success',
     });
+
   } catch (error) {
     console.error('signup error', error);
 

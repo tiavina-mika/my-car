@@ -1,3 +1,7 @@
+export enum ROLES {
+  admin = 'ADMINISTRATOR',
+  user = 'ROLE',
+}
 export interface User {
   email: string;
   name: string;
@@ -5,6 +9,7 @@ export interface User {
   id: string;
   createdAt: string;
   updatedAt: string;
+  roles: ROLES[];
 }
 
 export interface UserState {
