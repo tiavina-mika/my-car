@@ -3,7 +3,7 @@ import User from '../models/user';
 /**
  * 
  * signup the user
- * @param {*} req // body: { name, email, password }
+ * @param {*} req { body: { name, email, password, confirmPassword } }
  * @param {*} res 
  * @returns 
  */
@@ -12,7 +12,7 @@ const signup = async (req, res) => {
   try {
     // Check if the email has been already registered.
     const user = await User.findOne({
-      email: req.body,
+      email: req.body.email,
     });
 
     if (user) {
@@ -23,6 +23,13 @@ const signup = async (req, res) => {
     }
 
     const newUser = new User(req.body);
+
+    const errors = newUser.validateSync();
+
+    return res.status(200).json({
+      error: true,
+      errors,
+    });
 
     await newUser.save();
 
@@ -44,7 +51,7 @@ const signup = async (req, res) => {
 /**
  * 
  * login the user
- * @param {*} req 
+ * @param {*} req { body: { email, password } }
  * @param {*} res 
  * @returns 
  */
@@ -92,7 +99,7 @@ const login = async (req, res) => {
 
 /**
  * logout the current connected user
- * @param {*} req 
+ * @param {*} req { user }
  * @param {*} res 
  * @returns 
  */
@@ -147,6 +154,40 @@ const isAuth = async (req, res, next) => {
   }
 }
 
+
+/**
+ * 
+ * test if the user is connected
+ * @param {*} req { params: { userId, token }, user, token }
+ * @param {*} res 
+ * @returns 
+ */
+ const getCurrentUser = async (req, res) => {
+  try {
+    const user = req.user;
+    const currentToken = req.token;
+
+    const { userId, token } = req.params;
+
+    if (userId !== user.id && token !== currentToken) {
+      return res.status(500).json({
+        error: true,
+        message: 'Not authorized',
+      });
+    }
+    
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error('getCurrentUser error: ', error);
+
+    return res.status(500).json({
+      error: true,
+      message: 'Cannot get current user',
+    });
+  }
+}
+
+
 // ---------------------------------- //
 // ------------- EXPORT ------------- //
 // ---------------------------------- //
@@ -155,4 +196,5 @@ export default {
   login,
   logout,
   isAuth,
+  getCurrentUser,
 };
