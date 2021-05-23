@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { closeMessage } from '../actions/app';
 import BrowserPageDetails from '../components/BrowserPageDetails';
+import Menu from '../components/Menu';
 import SnackbarContentWrapper from '../components/SnackbarContentWrapper';
 import {
 	getLoading,
@@ -20,7 +21,7 @@ export const drawerWidthClosed: number = 70;
 
 const useStyles = makeStyles((theme: Theme) => ({
 	main: {
-		composes: 'flexRow',
+		composes: 'flexColumn',
 	},
 	children: {
 		composes: 'flexCenter flex1',
@@ -36,9 +37,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 		},
 	},
 	content: {
-		composes: 'flexRow center flexCenter flex1',
-		minHeight: '100vh',
-		backgroundColor: theme.palette.primary.main,
+		composes: 'flexRow center flexCenter flex1 stretchSelf',
+		backgroundColor: theme.palette.secondary.main,
 		flexGrow: 1,
 		padding: theme.spacing(3),
 		transition: theme.transitions.create(['width', 'margin'], {
@@ -93,6 +93,7 @@ const Main = ({ children }: Props) => {
 			<BrowserPageDetails title={title || projectNameUpper} />
 
 			<main className={classes.main}>
+				<Menu />
 
 				{/* ------------ Main Content ------------ */}
 				<div className={classes.content}>
