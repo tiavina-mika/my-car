@@ -1,6 +1,6 @@
-import { Car } from "../types/car";
-import { Comment } from "../types/comment";
-import { ROLES } from "../types/user";
+import { Car } from '../types/car';
+import { Comment } from '../types/comment';
+import { ROLES } from '../types/user';
 
 export const comments: Comment[] = [
   {

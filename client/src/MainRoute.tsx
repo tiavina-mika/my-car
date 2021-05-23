@@ -10,7 +10,7 @@ const MainRoute = ({ component: Component, ...rest }: Props) => {
   return (
     <Route {...rest}>
       <Main>
-        <Component {...rest} />
+        <Component />
       </Main>
     </Route>
   );

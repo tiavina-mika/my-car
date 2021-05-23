@@ -1,8 +1,9 @@
 import {  useMemo } from 'react';
 
-import { parseToken } from './../actions/auth';
-import { useSelector } from "react-redux";
-import { getCurrentUser } from "../reducers/app";
+import { useSelector } from 'react-redux';
+
+import { parseToken } from '../actions/auth';
+import { getCurrentUser } from '../reducers/app';
 
 export const useAuth = () => {
   const currrentUser = useSelector(getCurrentUser);
