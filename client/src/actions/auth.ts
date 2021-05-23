@@ -3,8 +3,8 @@ import { push } from 'connected-react-router';
 import { getCurrentUser } from '../reducers/app';
 import { AppThunk, AppDispatch } from '../store';
 import { LoginFormValues, SignupFormValues, UserResponse } from '../types/auth.d';
-import { User } from '../types/user';
-import { LOGIN_PATHNAME } from '../utils/constants';
+import { LOGIN_PATHNAME, SIGNUP_PATHNAME } from '../utils/constants';
+import { getTokenName } from '../utils/utils';
 import { AUTH_API } from './api';
 import { goToHome, showResponseError } from './app';
 import { actionWithLoader } from './utils';
@@ -15,33 +15,19 @@ import { actionWithLoader } from './utils';
 // --------------------------------------------------------//
 
 export const goToLogin = () => push(LOGIN_PATHNAME);
-export const goToSignup = () => push('/signup');
+export const goToSignup = () => push(SIGNUP_PATHNAME);
 
 
-/**
- * get the token from LocalStorage
- * @param {UserResponse} user 
- * @returns {string}
- */
-export const getTokenName = (user: User | string) => {
-  let id;
-
-  if (typeof user === 'string') {
-    id = user;
-  } else {
-    id = user.id;
-  }
-  return 'token-' + id;
-}
-
+// --------------------------------------------------------//
+// ----------------- Token / LocalStorag ----------------- //
+// --------------------------------------------------------//
 
 /**
  * get the token from LocalStorage
- * @param {UserResponse} user 
  * @returns {string}
  */
- export const retrieveTokenFromLocalStorage = (user: User) => {
-  const token = localStorage.getItem(getTokenName(user));
+ export const retrieveTokenFromLocalStorage = (): string | null => {
+  const token = localStorage.getItem(getTokenName());
   
   return token;
 }
@@ -51,8 +37,8 @@ export const getTokenName = (user: User | string) => {
  * clear user into localStorage
  * @param {string} user 
  */
-export const clearUserIntoLocalStorage = (id: string) => {
-  localStorage.removeItem(getTokenName(id));
+export const clearUserIntoLocalStorage = () => {
+  localStorage.removeItem(getTokenName());
 }
 
 
@@ -64,7 +50,7 @@ export const clearUserIntoLocalStorage = (id: string) => {
 export const updateUserIntoLocalStorage = (user: UserResponse) => {
   if (!user || !user.token) return null;
 
-  localStorage.setItem(getTokenName(user), user.token);
+  localStorage.setItem(getTokenName(), user.token + ',' + user.id);
 }
 
 
@@ -76,6 +62,29 @@ const deleteTokenFromUser = (user: UserResponse) => {
   delete user.token; 
 }
 
+
+/**
+ * get user id and token from local storage
+ * @returns {string}
+ */
+export const parseToken = (): { token: string; userId: string } | undefined => {
+  const token: string | null = retrieveTokenFromLocalStorage();
+
+  if (!token) return;
+
+  const tokenArr: string[] = token.split(',');
+  const storedToken: string = tokenArr[0];
+  const userId: string = tokenArr[1];
+
+  return {
+    token: storedToken,
+    userId,
+  };
+}
+
+// --------------------------------------------------------//
+// ----------------------- Actions ----------------------- //
+// --------------------------------------------------------//
 
 /**
  * save the user to store
@@ -113,7 +122,7 @@ export const login = (values: LoginFormValues): AppThunk =>
     // if there are errors
     showResponseError(result)(dispatch);
 
-		await loginSuccess(result.user)(dispatch, getState());
+		await loginSuccess(result)(dispatch, getState());
     dispatch(goToHome());
 	});
 
@@ -152,6 +161,6 @@ export const logout = () => actionWithLoader(async (dispatch: AppDispatch) => {
     type: 'LOGOUT_SUCCESS',
   });
 
-  clearUserIntoLocalStorage(result.id);
+  clearUserIntoLocalStorage();
   dispatch(goToLogin());
 });

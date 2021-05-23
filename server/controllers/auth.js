@@ -61,11 +61,14 @@ const login = async (req, res) => {
 
   try {
 
-    // Check if the email has been already registered.
-    const user = await User.findOne({
-      email,
-    });
+    // ------------------------------ //
+    // --- find user by its email --- //
+    // ------------------------------ //
+    const user = await User.findOne({ email });
 
+    // ------------------------------------ //
+    // --- send error if user not found --- //
+    // ------------------------------------ //
     if (!user) {
       return res.status(400).json({
         error: true,
@@ -73,6 +76,9 @@ const login = async (req, res) => {
       });
     }
 
+    // --------------------------------------------------------- //
+    // -- compare the input password width the saved password -- //
+    // --------------------------------------------------------- //
     const isMatch = await user.comparePassword(password);
 
     if (!isMatch) {
@@ -82,12 +88,23 @@ const login = async (req, res) => {
       }); 
     }
 
+    // ------------------------------- //
+    // ------- generate token -------- //
+    // ------------------------------- //
     const token = await user.generateToken();
 
-    return res.status(200).json({
-      success: true,
-      user: { ...user, id: user._id, token },
-    });
+    if (!token) {
+      return res.status(200).json({
+        error: true,
+        message: 'Authentication failed',
+      });
+    }
+
+    // ------------------------------- //
+    // ---- send successful result --- //
+    // ------------------------------- //
+    return res.status(200).json(user);
+
   } catch (error) {
     console.error('login error', error);
 
@@ -97,6 +114,7 @@ const login = async (req, res) => {
     });
   }
 };
+
 
 /**
  * logout the current connected user
@@ -118,7 +136,6 @@ const logout = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: 'Logged out successfully',
-      id: user._id,
     });
   } catch (error) {
     console.error('logout error: ', error);

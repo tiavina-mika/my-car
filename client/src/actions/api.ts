@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 import { ApiResponseError } from '../types/app';
-import { SignupFormValues, LoginFormValues, SignupApiResponse, LoginApiResponse, LogoutApiResponse } from '../types/auth';
+import { SignupFormValues, LoginFormValues, SignupApiResponse, LogoutApiResponse, UserResponse } from '../types/auth';
 import { Car, CarApiResponse, PartialCarFormValues } from '../types/car';
 import { CommentFormValues } from '../types/comment';
 import { getUrl } from './utils';
@@ -36,6 +36,6 @@ export const COMMENT_API = {
 
 export const AUTH_API = {
 	signup: (body: SignupFormValues): Promise<SignupApiResponse & ApiResponseError> => requests.post('users/signup', body),
-	login: (body: LoginFormValues): Promise<LoginApiResponse & ApiResponseError> => requests.post('users/login', body),
+	login: (body: LoginFormValues): Promise<UserResponse & ApiResponseError> => requests.post('users/login', body),
 	logout: (): Promise<LogoutApiResponse & ApiResponseError> => requests.get('users/logout'),
 };

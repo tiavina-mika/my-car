@@ -1,6 +1,8 @@
 import moment from 'moment';
 import 'moment/locale/fr';
 
+import { TOKEN_NAME } from './constants';
+
 // --------------------------------------------------------//
 // ----------------------- ENV ----------------------------//
 // --------------------------------------------------------//
@@ -405,6 +407,16 @@ export function isTextEmpty(string: any) {
   return true;
 	
 }
+
+/**
+ * get the token from LocalStorage
+ * @returns {string}
+ */
+export const getTokenName = (): string => {
+  return 'token-' + TOKEN_NAME;
+}
+
+
 // --------------------------------------------//
 // ------------------- Forms ------------------//
 // --------------------------------------------//

@@ -3,6 +3,8 @@ export const SERVER_PORT: number = 4200;
 export const projectName: string = 'my-car';
 export const projectNameUpper: string = projectName.toUpperCase();
 
+export const TOKEN_NAME: string = 'zm6Jt8h9LBq9fhGb';
+
 // ----------------------------------------------- //
 // -------------------- ROUTING------------------- //
 // ----------------------------------------------- //

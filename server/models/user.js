@@ -9,14 +9,14 @@ const UserSchema = new mongoose.Schema({
     name: { 
       type: String, 
       required: true, 
-      maxLength: 50 
+      maxLength: 100 
     },
     active: { type: Boolean, default: false },
     password: { 
       type: String, 
       required: true, 
       minLength: 6, 
-      maxLength: 50, 
+      maxLength: 100, 
     },
     roles: [{ type: String, default: 'USER', enum: ['USER', 'ADMINISTRATOR'] }],
     token: { type: String },
@@ -24,6 +24,8 @@ const UserSchema = new mongoose.Schema({
   { timestamps: true }
 );
 
+// return id instead of _id
+formatReturnedJSON(UserSchema);
 
 /**
  * hash the password before save
@@ -105,10 +107,6 @@ UserSchema.static('findByToken', async function(token) {
       console.error('findByToken error: ', error);
     }
 })
-
-
-// return id instead of _id
-formatReturnedJSON(UserSchema);
 
 const User = mongoose.model('User', UserSchema);
 

@@ -21,7 +21,5 @@ export interface LoginApiResponse {
 
 export interface SignupApiResponse extends ApiResponseSuccess {}
 
-export interface LogoutApiResponse extends ApiResponseSuccess {
-	id: string;
-}
+export interface LogoutApiResponse extends ApiResponseSuccess {}
 
