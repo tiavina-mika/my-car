@@ -1,5 +1,6 @@
 import { Car } from "../types/car";
 import { Comment } from "../types/comment";
+import { ROLES } from "../types/user";
 
 export const comments: Comment[] = [
   {
@@ -14,6 +15,7 @@ export const comments: Comment[] = [
       active: false,
       createdAt: '21-05-21',
       updatedAt: '21-05-21',
+      roles: [ROLES.admin, ROLES.user],
     }
   },
   {
@@ -28,6 +30,7 @@ export const comments: Comment[] = [
       active: false,
       createdAt: '21-05-21',
       updatedAt: '21-05-21',
+      roles: [ROLES.admin],
     }
   },
   {
@@ -42,6 +45,7 @@ export const comments: Comment[] = [
       active: false,
       createdAt: '21-05-21',
       updatedAt: '21-05-21',
+      roles: [ROLES.admin, ROLES.user],
     }
   },
 ];

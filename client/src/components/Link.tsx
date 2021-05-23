@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { ReactNode, SyntheticEvent } from 'react';
 
 import { Link as MUILink, Typography } from '@material-ui/core';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = { 
   textBefore?: string; 
   textAfter?: string; 
-  label?: string;
+  label?: string | ReactNode;
   href?: string; // 'eg /login'
   className?: string;
   linkClassName?: string;

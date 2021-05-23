@@ -14,7 +14,7 @@ export const theme = createMuiTheme({
     },
     secondary: {
       // This is green.A700 as hex.
-      main: blue[200],
+      main: '#ECECEC',
       // main: '#c4c4c4',
     },
     error: {
