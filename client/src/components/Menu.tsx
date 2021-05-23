@@ -5,7 +5,9 @@ import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar';
 import PersonIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
+import { useDispatch } from 'react-redux';
 
+import { goToLogin } from '../actions/auth';
 import Button from './Button';
 import Link from './Link';
 
@@ -92,7 +94,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const Menu = () => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
   const trigger = useScrollTrigger();
+
+  const _goToLogin = () => {
+    dispatch(goToLogin());
+  };
 
   return (
     <div className={classes.root}>
@@ -124,7 +131,8 @@ const Menu = () => {
             </div>
 
             {/* ----------- Auth buttons ----------- */}
-            <Button 
+            <Button
+              onClick={_goToLogin}
               text="Connexion" 
               className={classes.loginButton}
               startIcon={<PersonIcon />}
