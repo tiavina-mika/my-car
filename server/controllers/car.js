@@ -27,6 +27,7 @@ const carById = async (req, res, next, id) => {
   }
 }
 
+
 // ----------------------------------- //
 // -------------- WRITE -------------- //
 // ----------------------------------- //
@@ -34,23 +35,20 @@ const carById = async (req, res, next, id) => {
 /**
  * 
  * creete a car
- * @param {*} req 
+ * @param {*} req { car, body: { name, shortDesc, year, distance, fuel, gearbox, price, image*, comments* } }
  * @param {*} res 
  * @returns {*}
  */
  const create = async (req, res) => {
   try {
-    const { name } = req.body;
     // Validate request
-    if (!name) {
+    if (!req.body || !req.body.name) {
       res.status(400).json({ message: 'Content can not be empty!' });
       return;
     }
   
-    // Create a Tutorial
-    const car = new Car({
-      name,
-    });
+    // Create a car
+    const car = new Car(req.body);
   
     const result = await car.save();
     res.status(200).json(result);
@@ -63,7 +61,7 @@ const carById = async (req, res, next, id) => {
 /**
  * 
  * update a car
- * @param {*} req 
+ * @param {*} req { car, body: { name, shortDesc, year, distance, fuel, gearbox, price, image*, comments* } }
  * @param {*} res 
  * @returns {*}
  */
@@ -85,7 +83,7 @@ const edit = async (req, res) => {
 /**
  * 
  * delete a car
- * @param {*} req 
+ * @param {*} req { car }
  * @param {*} res 
  * @returns {*}
  */
@@ -124,7 +122,7 @@ const findAll = async (req, res) => {
 /**
  * 
  * find one car
- * @param {*} req 
+ * @param {*} req { car } 
  * @param {*} res 
  * @returns {*}
  */

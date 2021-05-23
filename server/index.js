@@ -9,6 +9,7 @@ import connectDB from './config/db';
 import carRouter from './routes/car';
 import authRouter from './routes/auth';
 import commentRouter from './routes/comment';
+import { getApiCustomError } from './utils/utils';
 
 dotenv.config();
 

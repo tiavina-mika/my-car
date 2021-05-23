@@ -4,7 +4,7 @@ import Car from '../models/car';
 /**
  * 
  * comment a car
- * @param {*} req 
+ * @param {*} req { car, user, body: { text } }
  * @param {*} res 
  */
 const create = async (req, res) => {
@@ -31,7 +31,7 @@ const create = async (req, res) => {
 
 /**
  * comment a car
- * @param {*} req 
+ * @param {*} req { car, params: { commentId } }
  * @param {*} res 
  */
 const remove = async (req, res) => {
@@ -53,7 +53,7 @@ const remove = async (req, res) => {
 /**
  * 
  * comment a car
- * @param {*} req 
+ * @param {*} req { car, params: { commentId }, body: { text } }
  * @param {*} res 
  */
  const edit = async (req, res) => {

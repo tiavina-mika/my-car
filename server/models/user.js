@@ -6,13 +6,23 @@ import { formatReturnedJSON } from '../config/db';
 
 const UserSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
+    name: { 
+      type: String, 
+      required: true, 
+      maxLength: 50 
+    },
     active: { type: Boolean, default: false },
-    password: { type: String, required: true },
+    password: { 
+      type: String, 
+      required: true, 
+      minLength: 6, 
+      maxLength: 50, 
+    },
     token: { type: String },
   },
   { timestamps: true }
 );
+
 
 /**
  * hash the password before save

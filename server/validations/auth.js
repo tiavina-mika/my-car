@@ -10,7 +10,7 @@ const validateBody = (otherValues) => {
   return {
     body: Joi.object({
       email: Joi.string().email({ minDomainSegments: 2 }),
-      password: Joi.string().required().min(4),
+      password: Joi.string().required().min(6).max(50),
       ...otherValues,
     }),
   }
@@ -19,7 +19,8 @@ const validateBody = (otherValues) => {
 
 // POST /users/signup
 const signup = validateBody({
-  confirmPassword: Joi.string().valid(Joi.ref('password')).required()
+  name: Joi.string().valid(),
+  confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
 });
 
 // POST /users/login
