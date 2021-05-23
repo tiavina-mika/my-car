@@ -16,6 +16,7 @@ import {
 } from '../reducers/app';
 import { projectNameUpper } from '../utils/constants';
 
+
 export const drawerWidthOpen: number = 240;
 export const drawerWidthClosed: number = 70;
 

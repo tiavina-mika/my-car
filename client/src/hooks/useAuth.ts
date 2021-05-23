@@ -1,22 +1,22 @@
-import {  useMemo } from 'react';
+import { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { parseToken } from '../actions/auth';
+import { loginSuccess, retrieveUserFromLocalStorage } from '../actions/auth';
 import { getCurrentUser } from '../reducers/app';
+import { UserResponse } from '../types/auth';
 
 export const useAuth = () => {
+  const dispatch = useDispatch();
   const currrentUser = useSelector(getCurrentUser);
 
-  const { userId }: any = parseToken();
+  // retrieve the userFrom local storage
+  const data: UserResponse | null = retrieveUserFromLocalStorage();
 
-  const isAuthenticated: boolean = useMemo((): boolean => {
-    if (currrentUser && currrentUser.id === userId) {
-      return true;
+  useEffect(() => {
+    // save the user to store
+    if (!currrentUser && data) {
+      dispatch(loginSuccess(data));
     }
-
-    return false;
-  }, [userId])
-
-  return isAuthenticated;
+  }, [dispatch, data])
 }

@@ -6,7 +6,7 @@ import { LoginFormValues, SignupFormValues, UserResponse } from '../types/auth.d
 import { LOGIN_PATHNAME, SIGNUP_PATHNAME } from '../utils/constants';
 import { getTokenName } from '../utils/utils';
 import { AUTH_API } from './api';
-import { goToHome, showResponseError } from './app';
+import { goToHome, showMessage, showResponseError } from './app';
 import { actionWithLoader } from './utils';
 
 
@@ -24,12 +24,16 @@ export const goToSignup = () => push(SIGNUP_PATHNAME);
 
 /**
  * get the token from LocalStorage
- * @returns {string}
+ * @returns {Object}
  */
- export const retrieveTokenFromLocalStorage = (): string | null => {
-  const token = localStorage.getItem(getTokenName());
+ export const retrieveUserFromLocalStorage = (): UserResponse | null => {
+   const storedUser: string | null = localStorage.getItem(getTokenName());
+
+   if (!storedUser) return null;
+
+  const user = JSON.parse(storedUser);
   
-  return token;
+  return user;
 }
 
 
@@ -48,9 +52,7 @@ export const clearUserIntoLocalStorage = () => {
  * @returns 
  */
 export const updateUserIntoLocalStorage = (user: UserResponse) => {
-  if (!user || !user.token) return null;
-
-  localStorage.setItem(getTokenName(), user.token + ',' + user.id);
+  localStorage.setItem(getTokenName(), JSON.stringify(user));
 }
 
 
@@ -60,26 +62,6 @@ export const updateUserIntoLocalStorage = (user: UserResponse) => {
  */
 const deleteTokenFromUser = (user: UserResponse) => {
   delete user.token; 
-}
-
-
-/**
- * get user id and token from local storage
- * @returns {string}
- */
-export const parseToken = (): { token: string; userId: string } | undefined => {
-  const token: string | null = retrieveTokenFromLocalStorage();
-
-  if (!token) return;
-
-  const tokenArr: string[] = token.split(',');
-  const storedToken: string = tokenArr[0];
-  const userId: string = tokenArr[1];
-
-  return {
-    token: storedToken,
-    userId,
-  };
 }
 
 // --------------------------------------------------------//
@@ -143,6 +125,7 @@ export const signup = (values: SignupFormValues): AppThunk => actionWithLoader(a
   });
   
   dispatch(goToHome());
+  dispatch(showMessage('Votre compte a été enregisrté avec succès', 'success'));
 });
 
 

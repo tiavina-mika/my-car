@@ -1,4 +1,4 @@
-import { ElementType } from 'react';
+import { ElementType, ReactNode } from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
@@ -47,7 +47,7 @@ type Props = {
 	className?: string;
 	onClose?: () => void;
 	variant?: any;
-	message?: string;
+	message?: string | ReactNode;
 	[x: string]: any;
 };
 
@@ -62,21 +62,23 @@ const SnackbarContentWrapper = ({
 	const classes = useStyles();
 
 	const Icon: ElementType = (variantIcon as any)[variant];
+
 	return (
 		<SnackbarContent
 			className={clsx((classes as any)[variant], className)}
 			aria-describedby='client-snackbar'
 			message={(
-    <span id='client-snackbar' className={classes.message}>
+				<span id='client-snackbar' className={classes.message}>
 					<Icon className={clsx(classes.icon, classes.iconVariant)} />
 					{message}
 				</span>
-  )}
-			action={onClose ? [
-				<IconButton key='close' aria-label='Close' color='inherit' onClick={onClose}>
-					<CloseIcon className={classes.icon} />
-				</IconButton>,
-			] : undefined}
+			)}
+			action={onClose ? 
+				[
+					<IconButton key='close' aria-label='Close' color='inherit' onClick={onClose}>
+						<CloseIcon className={classes.icon} />
+					</IconButton>,
+				] : undefined}
 			{...other}
 		/>
 	);
