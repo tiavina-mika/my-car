@@ -1,32 +1,16 @@
-import { SyntheticEvent } from 'react';
 
-import { Box, Link, Typography } from '@material-ui/core';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { Box } from '@material-ui/core';
 
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    link: {
-      marginLeft: theme.spacing(0.5),
-      marginRight: theme.spacing(0.5),
-    },
-  }),
-);
-
+import Link from '../../components/Link';
 
 const NotConnectedMessage = () => {
-  const classes = useStyles();
-
-  const preventDefault = (event: SyntheticEvent) => event.preventDefault();
-
   return (
     <Box pl={1}>
-      <Typography >
-        <Link href="/" onClick={preventDefault} className={classes.link}>
-          Connectez-vous
-        </Link>
-        pour pouvoir commenter cet article
-      </Typography>
+      <Link
+        label="Connectez-vous"
+        textAfter="pour pouvoir commenter cet article"
+        href="/login"
+      />
     </Box>
   );
 }
