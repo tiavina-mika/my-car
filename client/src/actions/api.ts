@@ -4,6 +4,7 @@ import { ApiResponseError } from '../types/app';
 import { SignupFormValues, LoginFormValues, SignupApiResponse, LogoutApiResponse, UserResponse } from '../types/auth';
 import { Car, CarApiResponse, PartialCarFormValues } from '../types/car';
 import { CommentFormValues } from '../types/comment';
+import { retrieveUserFromLocalStorage } from './auth';
 import { getUrl } from './utils';
 
 
@@ -16,10 +17,13 @@ const instance = axios.create({
  * @param {string} token 
  * @returns 
  */
-const setAuthorization = (token: string) => {
+const authorized = () => {
+	const user = retrieveUserFromLocalStorage();
+
+	if (!user) return {};
 	return {
 		headers: {
-			'Authorization': `Basic ${token}`,
+			'Authorization': `Basic ${user.token}`,
 		},
 	}
 }
@@ -42,13 +46,13 @@ export const CAR_API = {
 };
 
 export const COMMENT_API = {
-	createComment: (carId: string, body: CommentFormValues): Promise<CarApiResponse> => requests.post(`api/cars/${carId}/comment`, body),
-	updateComment: (carId: string, id: string, body: CommentFormValues): Promise<CarApiResponse> => requests.put(`api/cars/${carId}/comment/${id}`, body),
-	deleteComment: (carId: string, id: string): Promise<CarApiResponse> => requests.delete(`api/cars/${carId}/comment/${id}`),
+	createComment: (carId: string, body: CommentFormValues): Promise<CarApiResponse> => requests.post(`api/cars/${carId}/comment`, body, authorized),
+	updateComment: (carId: string, id: string, body: CommentFormValues): Promise<CarApiResponse> => requests.put(`api/cars/${carId}/comment/${id}`, body, authorized),
+	deleteComment: (carId: string, id: string): Promise<CarApiResponse> => requests.delete(`api/cars/${carId}/comment/${id}`, authorized),
 };
 
 export const AUTH_API = {
 	signup: (body: SignupFormValues): Promise<SignupApiResponse & ApiResponseError> => requests.post('users/signup', body),
 	login: (body: LoginFormValues): Promise<UserResponse & ApiResponseError> => requests.post('users/login', body),
-	logout: (token: string): Promise<LogoutApiResponse & ApiResponseError> => requests.get('users/logout', setAuthorization(token)),
+	logout: (): Promise<LogoutApiResponse & ApiResponseError> => requests.get('users/logout', authorized),
 };

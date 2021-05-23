@@ -133,15 +133,8 @@ export const signup = (values: SignupFormValues): AppThunk => actionWithLoader(a
  * @returns 
  */
 export const logout = () => actionWithLoader(async (dispatch: AppDispatch) => {
-  const currentUser = retrieveUserFromLocalStorage();
 
-  if (!currentUser || !currentUser.token) {
-    dispatch(goToHome());
-    dispatch(showMessage('Veuillez vous connecter', 'warning'));
-    return;
-  }
-
-  const result = await AUTH_API.logout(currentUser.token);
+  const result = await AUTH_API.logout();
 
   // if there are errors
   showResponseError(result)(dispatch);
