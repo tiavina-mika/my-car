@@ -75,7 +75,7 @@ const CommentForm = ({ onSave, defaultValue, className }: Props) => {
         <FormField 
           register={register}
           errors={errors} 
-          name="name"
+          name="text"
           rootClassName={classes.input}
           defaultValue={defaultValue}
           placeholder="Ecrivez un commentaire..."

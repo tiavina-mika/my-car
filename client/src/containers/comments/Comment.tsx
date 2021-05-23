@@ -21,7 +21,7 @@ const Comment = ({ comment }: Props) => {
   const classes = useStyles();
 
   return (
-      <ListItem alignItems="flex-start" key={comment.id}>
+      <ListItem alignItems="flex-start" key={comment._id}>
           <ListItemAvatar>
             <Avatar text="t" />
           </ListItemAvatar>

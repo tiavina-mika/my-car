@@ -4,7 +4,7 @@ import { ROLES } from '../types/user';
 
 export const comments: Comment[] = [
   {
-    id: '1',
+    _id: '1',
     text: 'Some comment 1',
     updatedAt: '2h',
     createdAt: '21-05-21',
@@ -19,7 +19,7 @@ export const comments: Comment[] = [
     }
   },
   {
-    id: '2',
+    _id: '2',
     text: 'Some comment 2 there',
     updatedAt: '10h',
     createdAt: '21-05-21',
@@ -34,7 +34,7 @@ export const comments: Comment[] = [
     }
   },
   {
-    id: '3',
+    _id: '3',
     text: 'Some comment 3 there',
     updatedAt: '8h',
     createdAt: '21-05-21',

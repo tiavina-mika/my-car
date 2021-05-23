@@ -48,6 +48,7 @@ type Props = {
 };
 
 const Comments = ({ comments, onAdd, car }: Props) => {
+  
   const classes = useStyles();
 
   const currrentUser = useSelector(getCurrentUser);
@@ -72,7 +73,7 @@ const Comments = ({ comments, onAdd, car }: Props) => {
         : <NotConnectedMessage />}
 
       {comments && comments.length > 0 && comments.map((comment: CommentType, index: number) => (
-        <Fragment key={comment.id}>
+        <Fragment key={comment._id}>
           {/* -----------------------------------------  */}
           {/* ------------ comments details ------------ */}
           {/* -----------------------------------------  */}
@@ -84,7 +85,7 @@ const Comments = ({ comments, onAdd, car }: Props) => {
           {/* the current logged user only can delete and update its own comment */}
           {currrentUser?.id === comment.postedBy.id && (
             <ButtonActions 
-              id={comment.id} 
+              id={comment._id} 
               text={comment.text} 
               car={car} 
             />

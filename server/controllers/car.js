@@ -11,7 +11,9 @@ import Car from '../models/car';
  */
 const carById = async (req, res, next, id) => {
   try {
-      const car = await Car.findById(id).exec();
+      const car = await Car.findById(id)
+        .populate('comments.postedBy')
+        .exec();
 
       if (!car) {
         return res.status(400).json({
@@ -111,7 +113,9 @@ const remove = async (req, res) => {
  */
 const findAll = async (req, res) => {
   try {
-    const cars = await Car.find().exec();
+    const cars = await Car.find()
+      .populate('comments.postedBy')
+      .exec();
 
     return res.status(200).json(cars);
   } catch (error) {
