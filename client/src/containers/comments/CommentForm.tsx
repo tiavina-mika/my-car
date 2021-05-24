@@ -2,9 +2,9 @@ import { Box, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import Avatar from '../../components/Avatar';
 import FormField from '../../components/form/FormField';
 import { CommentFormValues } from '../../types/comment';
-import Avatar from './Avatar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,8 +53,6 @@ type Props = {
 const CommentForm = ({ onSave, defaultValue, className }: Props) => {
   const classes = useStyles();
 
-	// const dispatch = useDispatch();
-
   const {
     register,
     handleSubmit,
@@ -63,14 +61,13 @@ const CommentForm = ({ onSave, defaultValue, className }: Props) => {
   } = useForm<CommentFormValues>();
 
   const onSubmit: SubmitHandler<CommentFormValues> = (values: CommentFormValues) => {
-    // console.log(values);
     onSave(values);
     reset(values);
   };
   
   return (
     <Box display="flex" alignItems="center" className={className}>
-      <Avatar text="T" className={classes.avatar} />
+      <Avatar content="T" className={classes.avatar} />
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
         <FormField 
           register={register}

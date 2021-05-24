@@ -1,6 +1,17 @@
+import { ReactNode } from 'react';
+
 import { Box } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+
+type Props = { 
+  content: string | ReactNode; 
+  className?: string; 
+  size?: number;
+  fontSize?: number; 
+};
+
+type StyleProps = Pick<Props, 'size' | 'fontSize'>;
 
 const useStyles = makeStyles(
   createStyles({
@@ -8,18 +19,17 @@ const useStyles = makeStyles(
       backgroundColor: '#BDBDBD',
       borderRadius: '50%',
       color: '#fff',
-      width: 40,
-      height: 40,
+      width: ({ size }: StyleProps) => size,
+      height: ({ size }: StyleProps) => size,
       textTransform: 'uppercase',
       fontFamily: 'sans-serif',
-      fontSize: 18,
+      fontSize: ({ fontSize }: StyleProps) => fontSize,
     },
   }),
 );
 
-type Props = { text: string; className?: string };
-const Avatar = ({ text, className }: Props) => {
-  const classes = useStyles();
+const Avatar = ({ content, className, size = 40, fontSize= 18 }: Props) => {
+  const classes = useStyles({ size, fontSize });
 
   return (
      <Box 
@@ -28,7 +38,7 @@ const Avatar = ({ text, className }: Props) => {
       justifyContent="center" 
       alignItems="center"
     >
-       {text}
+       {content}
      </Box>
   );
 }

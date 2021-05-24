@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { goToLogin } from '../actions/auth';
 import { getCurrentUser } from '../reducers/app';
+import Avatar from './Avatar';
 import Button from './Button';
 import Link from './Link';
 
@@ -89,6 +90,9 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: '#fff'
       }
     },
+    avatar: {
+      marginLeft: theme.spacing(3),
+    },
   }),
 );
 
@@ -111,7 +115,7 @@ const Menu = () => {
             
             {/* ----------- logo ----------- */}
             <Link 
-              label="My Car" 
+              content="My Car" 
               href="/" 
               className={classes.logo} 
               rootClassName={classes.logoContainer}
@@ -133,13 +137,23 @@ const Menu = () => {
             </div>
 
             {/* ----------- Auth buttons ----------- */}
-            {!currentUser && (
+            {!currentUser 
+            ? (
               <Button
                 onClick={_goToLogin}
                 text="Connexion" 
                 className={classes.loginButton}
                 startIcon={<PersonIcon />}
               />
+            )
+            : (
+              <Link href="/" >
+                <Avatar 
+                  content="T" 
+                  className={classes.avatar}
+                  size={35}
+                />
+              </Link>
             )}
           </Toolbar>
         </AppBar>

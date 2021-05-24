@@ -124,7 +124,7 @@ const Auth = () => {
 							{/* ----- Link ----- */}
 							<Box mt={5}>
 								<Link
-									label={auth.labelLink}
+									content={auth.labelLink}
 									href={auth.link}
 								/>
 							</Box>

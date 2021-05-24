@@ -23,20 +23,22 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = { 
   textBefore?: string; 
   textAfter?: string; 
-  label?: string | ReactNode;
+  content?: string | ReactNode;
   href?: string; // 'eg /login'
   rootClassName?: string;
   className?: string;
   isPreventDefault?: boolean;
+  children?: ReactNode;
 }
 const Link = ({
   textBefore,
   textAfter,
-  label,
+  content,
   href,
   rootClassName,
   className,
   isPreventDefault,
+  children,
 }: Props) => {
   const classes = useStyles();
 
@@ -55,7 +57,7 @@ const Link = ({
           className,
         )}
       >
-        {label}
+        {children || content}
       </MUILink>
       {textAfter}
     </Typography>
