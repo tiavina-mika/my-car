@@ -9,7 +9,7 @@ export const TOKEN_NAME: string = 'zm6Jt8h9LBq9fhGb';
 // -------------------- ROUTING------------------- //
 // ----------------------------------------------- //
 
-export const PROD_HOSTNAME: string = 'my-app-web.heroku.app';
+export const PROD_HOSTNAME: string = 'https://my-car-web.herokuapp.com/';
 export const LOCAL_HOSTNAME: string = 'localhost';
 export const LOCAL_ENDPOINT_HOSTNAME: string = '127.0.0.1';
 
