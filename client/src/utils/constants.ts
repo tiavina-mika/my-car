@@ -19,3 +19,4 @@ export const LOCAL_ENDPOINT: string = 'http://' + LOCAL_ENDPOINT_HOSTNAME + ':' 
 
 export const LOGIN_PATHNAME: string = '/login';
 export const SIGNUP_PATHNAME: string = '/signup';
+export const EDIT_PROFILE_PATHNAME: string = '/profil';

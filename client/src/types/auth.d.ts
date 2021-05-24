@@ -10,6 +10,10 @@ export interface SignupFormValues extends LoginFormValues {
 	confirmPassword: string;
 }
 
+export interface EditProfileFormValues extends Partial<Pick<LoginFormValues, 'email'>> {
+	name: string;
+};
+
 interface UserResponse extends User {
 	token?: string;
 }

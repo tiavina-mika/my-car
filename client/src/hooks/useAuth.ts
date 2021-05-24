@@ -19,5 +19,5 @@ export const useAuth = () => {
     if (!currentUser && data) {
       loginSuccess()(store.dispatch, store.getState);
     }
-  }, [store])
+  }, [store, retrieveUserFromLocalStorage])
 }

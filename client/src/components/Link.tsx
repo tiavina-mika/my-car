@@ -44,21 +44,28 @@ const Link = ({
 
   const preventDefault = (event: SyntheticEvent) => event.preventDefault();
 
+  const link = (
+    <MUILink 
+      href={getUrl() + href} 
+      onClick={isPreventDefault ? preventDefault: undefined} 
+      className={clsx(
+        textBefore ? classes.leftText: undefined,
+        textAfter ? classes.rightText: undefined,
+        classes.link,
+        className,
+      )}
+    >
+      {children || content}
+    </MUILink>
+  );
+
+  // for content other than a text, eg: img, div
+  if (children) return link;
+
   return (
     <Typography className={rootClassName}>
       {textBefore}
-      <MUILink 
-        href={getUrl() + href} 
-        onClick={isPreventDefault ? preventDefault: undefined} 
-        className={clsx(
-          textBefore ? classes.leftText: undefined,
-          textAfter ? classes.rightText: undefined,
-          classes.link,
-          className,
-        )}
-      >
-        {children || content}
-      </MUILink>
+      {link}
       {textAfter}
     </Typography>
   );

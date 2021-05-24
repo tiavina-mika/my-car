@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { goToLogin } from '../actions/auth';
 import { getUserNameFirstLetter } from '../actions/utils';
 import { getCurrentUser } from '../reducers/app';
+import { EDIT_PROFILE_PATHNAME } from '../utils/constants';
 import Avatar from './Avatar';
 import Button from './Button';
 import Link from './Link';
@@ -91,8 +92,17 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: '#fff'
       }
     },
+    avatarLink: {
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'none',
+      }
+    },
     avatar: {
       marginLeft: theme.spacing(3),
+      '&:hover': {
+        opactity: 0.8,
+      }
     },
   }),
 );
@@ -148,7 +158,7 @@ const Menu = () => {
               />
             )
             : (
-              <Link href="/" >
+              <Link href={EDIT_PROFILE_PATHNAME} className={classes.avatarLink}>
                 <Avatar 
                   content={getUserNameFirstLetter(currentUser)}
                   className={classes.avatar}

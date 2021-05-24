@@ -2,7 +2,7 @@ import { push } from 'connected-react-router';
 
 import { getCurrentUser } from '../reducers/app';
 import { AppThunk, AppDispatch } from '../store';
-import { LoginFormValues, SignupFormValues, UserResponse } from '../types/auth.d';
+import { EditProfileFormValues, LoginFormValues, SignupFormValues, UserResponse } from '../types/auth.d';
 import { LOGIN_PATHNAME, SIGNUP_PATHNAME } from '../utils/constants';
 import { getTokenName } from '../utils/utils';
 import { AUTH_API } from './api';
@@ -146,4 +146,24 @@ export const logout = () => actionWithLoader(async (dispatch: AppDispatch) => {
 
   clearUserIntoLocalStorage();
   dispatch(goToLogin());
+});
+
+/**
+ * signup after form validation
+ * @param {EditProfileFormValues} values { email, name } 
+ * @returns 
+ */
+ export const editProfile = (values: EditProfileFormValues): AppThunk => actionWithLoader(async (dispatch: AppDispatch) => {
+  const result = await AUTH_API.editProfile(values);
+
+  // if there are errors
+  showResponseError(result)(dispatch);
+
+  dispatch({
+    type: 'LOGIN_SUCCESS',
+    user: result,
+  });
+  
+  dispatch(goToHome());
+  dispatch(showMessage('Votre profile a été mis à jour avec succès', 'success'));
 });
