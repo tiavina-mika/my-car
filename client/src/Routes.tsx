@@ -19,11 +19,6 @@ const Routes = () => {
         <Route path={SIGNUP_PATHNAME} exact>
           <Auth />
         </Route>  
-    
-        {/* <PrivateRoutes path="/dashboard" component={Home} exact />
-        <PrivateRoutes path="/dashboard/profile" component={Profile} exact />
-        <PrivateRoutes path="/dashboard/changer-mot-de-passe" component={ChangePassword} exact /> */}
-
         <Route path="/logout" component={Logout} />
       </Switch>
   );
