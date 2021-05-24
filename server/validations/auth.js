@@ -1,5 +1,6 @@
 import { Joi } from 'express-validation';
 
+
 /**
  * 
  * validate the request body for PUT and POST
@@ -23,11 +24,23 @@ const signup = validateBody({
   confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
 });
 
+
 // POST /users/login
 const login = validateBody();
+
+
+// PUT /users/profile
+const editProfile = {
+  body: Joi.object({
+    email: Joi.string().email({ minDomainSegments: 2 }),
+    name: Joi.string().required().max(100),
+  }),
+};
+
 
 export default {
   signup,
   login,
+  editProfile,
 };
 

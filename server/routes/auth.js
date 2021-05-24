@@ -15,4 +15,7 @@ router.route('/signup')
 router.route('/logout')
   .get(authController.isAuth, authController.logout)
 
+router.route('/profile')
+  .put(authController.isAuth, validate(authValidations.editProfile), authController.editProfile);
+
 export default router

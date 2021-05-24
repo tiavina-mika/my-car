@@ -205,6 +205,26 @@ const isAuth = async (req, res, next) => {
   }
 }
 
+/**
+ * 
+ * update a car
+ * @param {*} req { body: { name, email } }
+ * @param {*} res 
+ * @returns {*}
+ */
+ const editProfile = async (req, res) => {
+  try {
+
+      const user = await req.user;
+      user.set(req.body);
+      user.updatedAt = Date.now();
+          
+      const result = await user.save();
+      res.status(200).json(result);
+  } catch (error) {
+      res.status(400).json(error);
+  }
+}
 
 // ---------------------------------- //
 // ------------- EXPORT ------------- //
@@ -215,4 +235,5 @@ export default {
   logout,
   isAuth,
   getCurrentUser,
+  editProfile,
 };
