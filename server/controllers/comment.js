@@ -1,4 +1,5 @@
 import Car from '../models/car';
+import { find, isAdmin, sendErrorResponse } from '../utils/utils';
 
 
 /**
@@ -37,7 +38,16 @@ const create = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const car = req.car;
+    const user = req.user;
     const { commentId } = req.params;
+
+    // get the current comment
+    const comment = find(car.comments, commentId);
+
+    // the admin and the user who create the comment are allow to edit the comment
+    if (comment.postedBy._id !== user.id && !isAdmin(user)) {
+      sendErrorResponse(res, 'Not allowed to delete this comment');
+    }
  
     const result = await Car.findByIdAndUpdate(car._id, { $pull: { comments: { _id: commentId } } }, { new: true })
         .populate('comments.postedBy')
@@ -60,7 +70,16 @@ const remove = async (req, res) => {
   try {
     const { text } = req.body;
     const car = req.car;
+    const user = req.user;
     const { commentId } = req.params;
+
+    // get the current comment
+    const comment = find(car.comments, commentId);
+
+    // the admin and the user who create the comment are allow to edit the comment
+    if (comment.postedBy._id !== user.id && !isAdmin(user)) {
+      sendErrorResponse(res, 'Not allowed to edit this comment');
+    }
 
     const result = await Car.findOneAndUpdate({
         _id: car._id,

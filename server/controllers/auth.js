@@ -147,6 +147,7 @@ const logout = async (req, res) => {
   }
 }
 
+
 /**
  * 
  * test if the user is connected
@@ -188,7 +189,7 @@ const isAuth = async (req, res, next) => {
     const { userId, token } = req.params;
 
     if (userId !== user.id && token !== currentToken) {
-      return res.status(500).json({
+      return res.status(400).json({
         error: true,
         message: 'Not authorized',
       });

@@ -75,6 +75,7 @@ export const getMonthName = (dateOrString: any, capitalized = true) => {
   return month;
 };
 
+export const fromNow = (date: string): string => moment(date).fromNow();
 export const formatDate = (dateOrString: any, withDayName = true, withYear = true) => {
   if (!dateOrString) {
     return '';

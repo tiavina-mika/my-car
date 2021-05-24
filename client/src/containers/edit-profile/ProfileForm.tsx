@@ -1,4 +1,4 @@
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
@@ -7,34 +7,32 @@ import FormField from '../../components/form/FormField';
 import { EditProfileFormValues } from '../../types/auth';
 import { User } from '../../types/user';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    input: {
-      backgroundColor: grey[200],
+const useStyles = makeStyles({
+  input: {
+    backgroundColor: grey[200],
+    borderRadius: 25,
+    '& input:valid:focus': {
       borderRadius: 25,
-      '& input:valid:focus': {
-        borderRadius: 25,
-        backgroundColor: grey[300],
-      },
-      '& input::placeholder': {
-        color: grey[900],
-        fontSize: 14,
-      },
-      '& input:valid + fieldset': {
-        borderRadius: 25,
-        borderWidth: 0,
-        color: 'blue'
-      },
-      '& input:valid:focus + fieldset': {
-        border: 'none',
-        padding: '4px !important', // override inline-style
-      },
+      backgroundColor: grey[300],
     },
-    form: {
-      flex: 1
+    '& input::placeholder': {
+      color: grey[900],
+      fontSize: 14,
     },
-  }),
-);
+    '& input:valid + fieldset': {
+      borderRadius: 25,
+      borderWidth: 0,
+      color: 'blue'
+    },
+    '& input:valid:focus + fieldset': {
+      border: 'none',
+      padding: '4px !important', // override inline-style
+    },
+  },
+  form: {
+    flex: 1
+  },
+});
 
 type Props = { 
   onSave: (values: EditProfileFormValues) => void; 

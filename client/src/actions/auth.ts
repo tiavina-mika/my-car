@@ -3,6 +3,7 @@ import { push } from 'connected-react-router';
 import { getCurrentUser } from '../reducers/app';
 import { AppThunk, AppDispatch } from '../store';
 import { EditProfileFormValues, LoginFormValues, SignupFormValues, UserResponse } from '../types/auth.d';
+import { ROLES, User } from '../types/user.d';
 import { LOGIN_PATHNAME, SIGNUP_PATHNAME } from '../utils/constants';
 import { getTokenName } from '../utils/utils';
 import { AUTH_API } from './api';
@@ -64,6 +65,12 @@ const deleteTokenFromUser = (user: UserResponse) => {
   delete user.token; 
 }
 
+/**
+ * check if the user is an admin
+ * @param {*} user 
+ * @returns 
+ */
+ export const isAdmin = (user: User): boolean => user.roles.includes(ROLES.admin);
 
 // --------------------------------------------------------//
 // ----------------------- Actions ----------------------- //

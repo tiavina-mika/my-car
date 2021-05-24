@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { goToLogin } from '../actions/auth';
 import { getUserNameFirstLetter } from '../actions/utils';
 import { getCurrentUser } from '../reducers/app';
-import { EDIT_PROFILE_PATHNAME } from '../utils/constants';
 import Avatar from './Avatar';
 import Button from './Button';
 import Link from './Link';

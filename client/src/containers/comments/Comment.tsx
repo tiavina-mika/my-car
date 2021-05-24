@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { getUserNameFirstLetter } from '../../actions/utils';
 import Avatar from '../../components/Avatar';
 import { Comment as CommentType} from '../../types/comment';
+import { fromNow } from '../../utils/utils';
 
 const useStyles = makeStyles(
   createStyles({
@@ -42,7 +43,7 @@ const Comment = ({ comment }: Props) => {
                   className={classes.inline}
                   color="textPrimary"
                 >
-                  {comment.updatedAt}
+                  {fromNow(comment.updatedAt)}
                 </Typography>
               </Box>
             }

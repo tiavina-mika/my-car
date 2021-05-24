@@ -7,6 +7,7 @@ import List from '@material-ui/core/List';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
+import { isAdmin } from '../../actions/auth';
 import { getCurrentUser } from '../../reducers/app';
 import { Car } from '../../types/car';
 import { Comment as CommentType, CommentFormValues } from '../../types/comment';
@@ -83,7 +84,7 @@ const Comments = ({ comments, onAdd, car }: Props) => {
           {/* ------------ button actions ----------- */}
           {/* --------------------------------------- */}
           {/* the current logged user only can delete and update its own comment */}
-          {currrentUser?.id === comment.postedBy.id && (
+          {(currrentUser?.id === comment.postedBy.id || isAdmin(currrentUser)) && (
             <ButtonActions 
               comment={comment} 
               car={car} 
