@@ -344,7 +344,7 @@ var getCurrentUser = /*#__PURE__*/function () {
               break;
             }
 
-            return _context5.abrupt("return", res.status(500).json({
+            return _context5.abrupt("return", res.status(400).json({
               error: true,
               message: 'Not authorized'
             }));
