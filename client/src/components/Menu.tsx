@@ -158,7 +158,7 @@ const Menu = () => {
               />
             )
             : (
-              <Link href={EDIT_PROFILE_PATHNAME} className={classes.avatarLink}>
+              <Link href="/logout" className={classes.avatarLink}>
                 <Avatar 
                   content={getUserNameFirstLetter(currentUser)}
                   className={classes.avatar}
