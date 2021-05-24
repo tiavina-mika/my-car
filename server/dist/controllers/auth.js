@@ -16,30 +16,28 @@ var _user = _interopRequireDefault(require("../models/user"));
 /**
  * 
  * signup the user
- * @param {*} req 
+ * @param {*} req { body: { name, email, password, confirmPassword } }
  * @param {*} res 
  * @returns 
  */
 var signup = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, email, password, user, newUser;
-
+    var user, newUser, adminEmail;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, email = _req$body.email, password = _req$body.password;
-            _context.prev = 1;
-            _context.next = 4;
+            _context.prev = 0;
+            _context.next = 3;
             return _user["default"].findOne({
-              email: email
+              email: req.body.email
             });
 
-          case 4:
+          case 3:
             user = _context.sent;
 
             if (!user) {
-              _context.next = 7;
+              _context.next = 6;
               break;
             }
 
@@ -48,35 +46,40 @@ var signup = /*#__PURE__*/function () {
               message: 'Email is already used'
             }));
 
-          case 7:
-            newUser = new _user["default"]({
-              email: email,
-              password: password
-            });
-            _context.next = 10;
+          case 6:
+            newUser = new _user["default"](req.body);
+            adminEmail = process.env.ADMIN_EMAIL;
+
+            if (adminEmail && adminEmail === req.body.email) {
+              newUser.roles.push('ADMINISTRATOR');
+            } else {
+              newUser.roles.push('USER');
+            }
+
+            _context.next = 11;
             return newUser.save();
 
-          case 10:
+          case 11:
             return _context.abrupt("return", res.status(200).json({
               success: true,
               message: 'Registration Success'
             }));
 
-          case 13:
-            _context.prev = 13;
-            _context.t0 = _context["catch"](1);
+          case 14:
+            _context.prev = 14;
+            _context.t0 = _context["catch"](0);
             console.error('signup error', _context.t0);
             return _context.abrupt("return", res.status(500).json({
               error: true,
               message: 'Cannot Register'
             }));
 
-          case 17:
+          case 18:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 13]]);
+    }, _callee, null, [[0, 14]]);
   }));
 
   return function signup(_x, _x2) {
@@ -86,7 +89,7 @@ var signup = /*#__PURE__*/function () {
 /**
  * 
  * login the user
- * @param {*} req 
+ * @param {*} req { body: { email, password } }
  * @param {*} res 
  * @returns 
  */
@@ -94,13 +97,13 @@ var signup = /*#__PURE__*/function () {
 
 var login = /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-    var _req$body2, email, password, user, isMatch, token;
+    var _req$body, email, password, user, isMatch, token;
 
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _req$body2 = req.body, email = _req$body2.email, password = _req$body2.password;
+            _req$body = req.body, email = _req$body.email, password = _req$body.password;
             _context2.prev = 1;
             _context2.next = 4;
             return _user["default"].findOne({
@@ -143,17 +146,22 @@ var login = /*#__PURE__*/function () {
 
           case 14:
             token = _context2.sent;
+
+            if (token) {
+              _context2.next = 17;
+              break;
+            }
+
             return _context2.abrupt("return", res.status(200).json({
-              success: true,
-              user: {
-                id: user._id,
-                email: user.email,
-                token: token
-              }
+              error: true,
+              message: 'Authentication failed'
             }));
 
-          case 18:
-            _context2.prev = 18;
+          case 17:
+            return _context2.abrupt("return", res.status(200).json(user));
+
+          case 20:
+            _context2.prev = 20;
             _context2.t0 = _context2["catch"](1);
             console.error('login error', _context2.t0);
             return _context2.abrupt("return", res.status(500).json({
@@ -161,12 +169,12 @@ var login = /*#__PURE__*/function () {
               message: 'Cannot login'
             }));
 
-          case 22:
+          case 24:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 18]]);
+    }, _callee2, null, [[1, 20]]);
   }));
 
   return function login(_x3, _x4) {
@@ -175,7 +183,7 @@ var login = /*#__PURE__*/function () {
 }();
 /**
  * logout the current connected user
- * @param {*} req 
+ * @param {*} req { user }
  * @param {*} res 
  * @returns 
  */
@@ -308,6 +316,112 @@ var isAuth = /*#__PURE__*/function () {
   return function isAuth(_x7, _x8, _x9) {
     return _ref4.apply(this, arguments);
   };
+}();
+/**
+ * 
+ * test if the user is connected
+ * @param {*} req { params: { userId, token }, user, token }
+ * @param {*} res 
+ * @returns 
+ */
+
+
+var getCurrentUser = /*#__PURE__*/function () {
+  var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
+    var user, currentToken, _req$params, userId, token;
+
+    return _regenerator["default"].wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+            user = req.user;
+            currentToken = req.token;
+            _req$params = req.params, userId = _req$params.userId, token = _req$params.token;
+
+            if (!(userId !== user.id && token !== currentToken)) {
+              _context5.next = 6;
+              break;
+            }
+
+            return _context5.abrupt("return", res.status(500).json({
+              error: true,
+              message: 'Not authorized'
+            }));
+
+          case 6:
+            return _context5.abrupt("return", res.status(200).json(user));
+
+          case 9:
+            _context5.prev = 9;
+            _context5.t0 = _context5["catch"](0);
+            console.error('getCurrentUser error: ', _context5.t0);
+            return _context5.abrupt("return", res.status(500).json({
+              error: true,
+              message: 'Cannot get current user'
+            }));
+
+          case 13:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, null, [[0, 9]]);
+  }));
+
+  return function getCurrentUser(_x10, _x11) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+/**
+ * 
+ * update a car
+ * @param {*} req { body: { name, email } }
+ * @param {*} res 
+ * @returns {*}
+ */
+
+
+var editProfile = /*#__PURE__*/function () {
+  var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res) {
+    var user, result;
+    return _regenerator["default"].wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.prev = 0;
+            _context6.next = 3;
+            return req.user;
+
+          case 3:
+            user = _context6.sent;
+            user.set(req.body);
+            user.updatedAt = Date.now();
+            _context6.next = 8;
+            return user.save();
+
+          case 8:
+            result = _context6.sent;
+            res.status(200).json(result);
+            _context6.next = 15;
+            break;
+
+          case 12:
+            _context6.prev = 12;
+            _context6.t0 = _context6["catch"](0);
+            res.status(400).json(_context6.t0);
+
+          case 15:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6, null, [[0, 12]]);
+  }));
+
+  return function editProfile(_x12, _x13) {
+    return _ref6.apply(this, arguments);
+  };
 }(); // ---------------------------------- //
 // ------------- EXPORT ------------- //
 // ---------------------------------- //
@@ -317,6 +431,8 @@ var _default = {
   signup: signup,
   login: login,
   logout: logout,
-  isAuth: isAuth
+  isAuth: isAuth,
+  getCurrentUser: getCurrentUser,
+  editProfile: editProfile
 };
 exports["default"] = _default;

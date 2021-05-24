@@ -25,12 +25,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // To remove data, use:
 app.use(mongoSanitize());
 
+app.use(express.static('dist/public'));
+
 app.use('/test', (req, res) => {
   res.send('Hello Word');
 });
 app.use('/api', carRouter);
 app.use('/api', commentRouter);
 app.use('/users', authRouter);
+
+app.get('/*', (req, res) => {
+  res.sendFile(__dirname + '/dist/public/index.html');
+});
 
 // ---------------------------- //
 // ---------- Errors ---------- //

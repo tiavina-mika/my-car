@@ -27,19 +27,30 @@ var validateBody = function validateBody(otherValues) {
       email: _expressValidation.Joi.string().email({
         minDomainSegments: 2
       }),
-      password: _expressValidation.Joi.string().required().min(4)
+      password: _expressValidation.Joi.string().required().min(6).max(100)
     }, otherValues))
   };
 }; // POST /users/signup
 
 
 var signup = validateBody({
+  name: _expressValidation.Joi.string().valid(),
   confirmPassword: _expressValidation.Joi.string().valid(_expressValidation.Joi.ref('password')).required()
 }); // POST /users/login
 
-var login = validateBody();
+var login = validateBody(); // PUT /users/profile
+
+var editProfile = {
+  body: _expressValidation.Joi.object({
+    email: _expressValidation.Joi.string().email({
+      minDomainSegments: 2
+    }),
+    name: _expressValidation.Joi.string().required().max(100)
+  })
+};
 var _default = {
   signup: signup,
-  login: login
+  login: login,
+  editProfile: editProfile
 };
 exports["default"] = _default;

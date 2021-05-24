@@ -25,28 +25,34 @@ var UserSchema = new _mongoose["default"].Schema({
     required: true,
     unique: true
   },
+  name: {
+    type: String,
+    required: true,
+    maxLength: 100
+  },
   active: {
     type: Boolean,
     "default": false
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    minLength: 6,
+    maxLength: 100
   },
+  roles: [{
+    type: String,
+    "default": 'USER',
+    "enum": ['USER', 'ADMINISTRATOR']
+  }],
   token: {
     type: String
-  },
-  resetPasswordToken: {
-    type: String,
-    "default": null
-  },
-  resetPasswordExpires: {
-    type: Date,
-    "default": null
   }
 }, {
   timestamps: true
-});
+}); // return id instead of _id
+
+(0, _db.formatReturnedJSON)(UserSchema);
 /**
  * hash the password before save
  */
@@ -226,9 +232,7 @@ UserSchema["static"]('findByToken', /*#__PURE__*/function () {
   return function (_x3) {
     return _ref4.apply(this, arguments);
   };
-}()); // return id instead of _id
-
-(0, _db.formatReturnedJSON)(UserSchema);
+}());
 
 var User = _mongoose["default"].model('User', UserSchema);
 

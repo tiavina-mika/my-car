@@ -31,26 +31,38 @@ var carById = /*#__PURE__*/function () {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _car["default"].findById(id).exec();
+            return _car["default"].findById(id).populate('comments.postedBy').exec();
 
           case 3:
             car = _context.sent;
+
+            if (car) {
+              _context.next = 6;
+              break;
+            }
+
+            return _context.abrupt("return", res.status(400).json({
+              error: true,
+              message: 'Id not found'
+            }));
+
+          case 6:
             req.car = car;
             next();
-            _context.next = 11;
+            _context.next = 13;
             break;
 
-          case 8:
-            _context.prev = 8;
+          case 10:
+            _context.prev = 10;
             _context.t0 = _context["catch"](0);
             return _context.abrupt("return", res.status(400).json(_context.t0));
 
-          case 11:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 10]]);
   }));
 
   return function carById(_x, _x2, _x3, _x4) {
@@ -63,7 +75,7 @@ var carById = /*#__PURE__*/function () {
 /**
  * 
  * creete a car
- * @param {*} req 
+ * @param {*} req { car, body: { name, shortDesc, year, distance, fuel, gearbox, price, image*, comments* } }
  * @param {*} res 
  * @returns {*}
  */
@@ -71,16 +83,15 @@ var carById = /*#__PURE__*/function () {
 
 var create = /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
-    var name, car, result;
+    var car, result;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.prev = 0;
-            name = req.body.name; // Validate request
 
-            if (name) {
-              _context2.next = 5;
+            if (!(!req.body || !req.body.name)) {
+              _context2.next = 4;
               break;
             }
 
@@ -89,31 +100,29 @@ var create = /*#__PURE__*/function () {
             });
             return _context2.abrupt("return");
 
-          case 5:
-            // Create a Tutorial
-            car = new _car["default"]({
-              name: name
-            });
-            _context2.next = 8;
+          case 4:
+            // Create a car
+            car = new _car["default"](req.body);
+            _context2.next = 7;
             return car.save();
 
-          case 8:
+          case 7:
             result = _context2.sent;
             res.status(200).json(result);
-            _context2.next = 15;
+            _context2.next = 14;
             break;
 
-          case 12:
-            _context2.prev = 12;
+          case 11:
+            _context2.prev = 11;
             _context2.t0 = _context2["catch"](0);
             res.status(500).json(_context2.t0);
 
-          case 15:
+          case 14:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 12]]);
+    }, _callee2, null, [[0, 11]]);
   }));
 
   return function create(_x5, _x6) {
@@ -123,7 +132,7 @@ var create = /*#__PURE__*/function () {
 /**
  * 
  * update a car
- * @param {*} req 
+ * @param {*} req { car, body: { name, shortDesc, year, distance, fuel, gearbox, price, image*, comments* } }
  * @param {*} res 
  * @returns {*}
  */
@@ -173,7 +182,7 @@ var edit = /*#__PURE__*/function () {
 /**
  * 
  * delete a car
- * @param {*} req 
+ * @param {*} req { car }
  * @param {*} res 
  * @returns {*}
  */
@@ -231,7 +240,7 @@ var remove = /*#__PURE__*/function () {
 
 
 var findAll = /*#__PURE__*/function () {
-  var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(_, res) {
+  var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
     var cars;
     return _regenerator["default"].wrap(function _callee5$(_context5) {
       while (1) {
@@ -239,7 +248,7 @@ var findAll = /*#__PURE__*/function () {
           case 0:
             _context5.prev = 0;
             _context5.next = 3;
-            return _car["default"].find().exec();
+            return _car["default"].find().populate('comments.postedBy').exec();
 
           case 3:
             cars = _context5.sent;
@@ -265,7 +274,7 @@ var findAll = /*#__PURE__*/function () {
 /**
  * 
  * find one car
- * @param {*} req 
+ * @param {*} req { car } 
  * @param {*} res 
  * @returns {*}
  */

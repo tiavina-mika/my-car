@@ -16,7 +16,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /**
- * 
  * validate the request body for PUT and POST
  * @param {...object} otherValues 
  * @returns 
@@ -24,7 +23,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var validateBody = function validateBody(otherValues) {
   return {
     body: _expressValidation.Joi.object(_objectSpread({
-      name: _expressValidation.Joi.string().required()
+      name: _expressValidation.Joi.string().max(50).required(),
+      shortDesc: _expressValidation.Joi.string().required(),
+      year: _expressValidation.Joi.string().required().max(4),
+      distance: _expressValidation.Joi.string().required(),
+      fuel: _expressValidation.Joi.string(),
+      gearbox: _expressValidation.Joi.string(),
+      price: _expressValidation.Joi.string().required(),
+      image: _expressValidation.Joi.string()
     }, otherValues))
   };
 };

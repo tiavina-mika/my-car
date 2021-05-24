@@ -16,7 +16,7 @@ var _car = _interopRequireDefault(require("../models/car"));
 /**
  * 
  * comment a car
- * @param {*} req 
+ * @param {*} req { car, user, body: { text } }
  * @param {*} res 
  */
 var create = /*#__PURE__*/function () {
@@ -68,7 +68,7 @@ var create = /*#__PURE__*/function () {
 }();
 /**
  * comment a car
- * @param {*} req 
+ * @param {*} req { car, params: { commentId } }
  * @param {*} res 
  */
 
@@ -120,7 +120,7 @@ var remove = /*#__PURE__*/function () {
 /**
  * 
  * comment a car
- * @param {*} req 
+ * @param {*} req { car, params: { commentId }, body: { text } }
  * @param {*} res 
  */
 
