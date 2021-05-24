@@ -7,7 +7,7 @@ import { useDispatch, useStore } from 'react-redux';
 
 import { deleteCommentThunk, updateCommentThunk } from '../../actions/comments';
 import { Car } from '../../types/car';
-import { CommentFormValues } from '../../types/comment';
+import { Comment, CommentFormValues } from '../../types/comment';
 import CommentForm from './CommentForm';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,12 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = { 
-  id: string; 
-  text?: string;
+  comment: Comment;
   car: Car;
 };
 
-const ButtonActions = ({ id, text, car }: Props) => {
+const ButtonActions = ({ comment, car }: Props) => {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -51,15 +50,15 @@ const ButtonActions = ({ id, text, car }: Props) => {
   }, [car, store, dispatch]);
 
   const handleEdit = useCallback((values: CommentFormValues) => {
-    updateCommentThunk(car, id, values)(dispatch);
+    updateCommentThunk(car, comment._id, values)(dispatch);
     toggle();
-  }, [id, toggle]);
+  }, [comment, toggle]);
 
   return (
     <Box mt={-3} mb={1}>
       <Box display="flex" justifyContent="flex-end">
         <Button
-          onClick={() => handleDelete(id)} 
+          onClick={() => handleDelete(comment._id)} 
           className={clsx(classes.button, classes.firstButton)}
         >
           Supprimer
@@ -75,8 +74,9 @@ const ButtonActions = ({ id, text, car }: Props) => {
       {open && (
         <CommentForm 
           onSave={handleEdit} 
-          defaultValue={text} 
-          className={classes.form} 
+          defaultValue={comment.text} 
+          className={classes.form}
+          user={comment.postedBy}
         />
       )}
     </Box>

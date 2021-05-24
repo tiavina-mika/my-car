@@ -69,7 +69,7 @@ const Comments = ({ comments, onAdd, car }: Props) => {
       {/* --------------------------------------------------  */}
       {/* only logged user can add a comment */}
       {currrentUser
-        ? <CommentForm onSave={onAdd} />
+        ? <CommentForm onSave={onAdd} user={currrentUser} />
         : <NotConnectedMessage />}
 
       {comments && comments.length > 0 && comments.map((comment: CommentType, index: number) => (
@@ -85,8 +85,7 @@ const Comments = ({ comments, onAdd, car }: Props) => {
           {/* the current logged user only can delete and update its own comment */}
           {currrentUser?.id === comment.postedBy.id && (
             <ButtonActions 
-              id={comment._id} 
-              text={comment.text} 
+              comment={comment} 
               car={car} 
             />
           )}

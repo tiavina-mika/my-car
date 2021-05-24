@@ -1,5 +1,8 @@
 import { RootState, AppDispatch } from '../store';
+import { UserResponse } from '../types/auth';
+import { User } from '../types/user';
 import { LOCAL_ENDPOINT, LOCAL_HOSTNAME, PROD_URL } from '../utils/constants';
+import { getFirstLetter } from '../utils/utils';
 import { showError } from './app';
 
 
@@ -41,3 +44,11 @@ export const actionWithLoader = (thunkOrPromise: any): any => async (dispatch: A
   // ---- PROD ---- //
   return PROD_URL;
 }
+
+
+/**
+ * Get and capitalize user name first letter (ex: tiavina => T)
+ * @param {User | UserResponse} user 
+ * @returns 
+ */
+export const getUserNameFirstLetter = (user: User | UserResponse): string => getFirstLetter(user.name);

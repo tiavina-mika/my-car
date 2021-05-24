@@ -8,6 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { goToLogin } from '../actions/auth';
+import { getUserNameFirstLetter } from '../actions/utils';
 import { getCurrentUser } from '../reducers/app';
 import Avatar from './Avatar';
 import Button from './Button';
@@ -149,7 +150,7 @@ const Menu = () => {
             : (
               <Link href="/" >
                 <Avatar 
-                  content="T" 
+                  content={getUserNameFirstLetter(currentUser)}
                   className={classes.avatar}
                   size={35}
                 />

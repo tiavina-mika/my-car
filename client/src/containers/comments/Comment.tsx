@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
+import { getUserNameFirstLetter } from '../../actions/utils';
 import Avatar from '../../components/Avatar';
 import { Comment as CommentType} from '../../types/comment';
 
@@ -23,7 +24,7 @@ const Comment = ({ comment }: Props) => {
   return (
       <ListItem alignItems="flex-start" key={comment._id}>
           <ListItemAvatar>
-            <Avatar content="t" />
+            <Avatar content={getUserNameFirstLetter(comment.postedBy)} />
           </ListItemAvatar>
           <ListItemText
             primary={

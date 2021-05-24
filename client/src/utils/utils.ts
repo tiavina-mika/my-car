@@ -132,6 +132,9 @@ export const isOutOfDate = (date: any, limitDate: any) => {
 };
 
 export const randomString = () => Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6);
+
+export const getFirstLetter = (str: string): string => str.charAt(0).toUpperCase();
+
 // --------------------------------------------------------------------//
 // ------------------------- normalization ----------------------------//
 // --------------------------------------------------------------------//
