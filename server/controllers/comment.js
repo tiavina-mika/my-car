@@ -45,8 +45,8 @@ const remove = async (req, res) => {
     const comment = find(car.comments, commentId);
 
     // the admin and the user who create the comment are allow to edit the comment
-    if (comment.postedBy._id !== user.id && !isAdmin(user)) {
-      sendErrorResponse(res, 'Not allowed to delete this comment');
+    if (comment.postedBy.id !== user.id && !isAdmin(user)) {
+      return sendErrorResponse(res, 'Not allowed to delete this comment');
     }
  
     const result = await Car.findByIdAndUpdate(car._id, { $pull: { comments: { _id: commentId } } }, { new: true })
@@ -77,8 +77,8 @@ const remove = async (req, res) => {
     const comment = find(car.comments, commentId);
 
     // the admin and the user who create the comment are allow to edit the comment
-    if (comment.postedBy._id !== user.id && !isAdmin(user)) {
-      sendErrorResponse(res, 'Not allowed to edit this comment');
+    if (comment.postedBy.id !== user.id && !isAdmin(user)) {
+      return sendErrorResponse(res, 'Not allowed to edit this comment');
     }
 
     const result = await Car.findOneAndUpdate({

@@ -70,7 +70,7 @@ const deleteTokenFromUser = (user: UserResponse) => {
  * @param {*} user 
  * @returns 
  */
- export const isAdmin = (user: User): boolean => user.roles.includes(ROLES.admin);
+ export const isAdmin = (user: User): boolean => user?.roles?.includes(ROLES.admin);
 
 // --------------------------------------------------------//
 // ----------------------- Actions ----------------------- //

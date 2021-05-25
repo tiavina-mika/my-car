@@ -48,18 +48,24 @@ export const createComment = (carId: string, values: CommentFormValues): AppThun
  * @param {CommentFormValues} body
  * @returns {Promise<*>}
  */
-export const updateCommentThunk = (car: Car, id: string, body: CommentFormValues): (dispatch: AppDispatch) => Promise<void> => {
-  return async (dispatch: AppDispatch): Promise<void> => {
+export const updateCommentThunk = (car: Car, id: string, body: CommentFormValues): (dispatch: AppDispatch, getState: () => RootState) => Promise<void> => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    const cars: Car[] = getCars(getState());
     const updatedCar = await COMMENT_API.updateComment(car.id, id, body);
 
     // if there are errors
     showResponseError(updatedCar)(dispatch);
 
+		// -------------- dispatch -------------- //
     dispatch({
-      type: 'CAR_UPDATED',
-      car,
+      type: 'CAR_LOADED',
+      car: updatedCar,
     });
 
+    dispatch({
+      type: 'CARS_UPDATED',
+      cars: [updatedCar, ...cars],
+    });
   };
 };
 
@@ -72,15 +78,15 @@ export const updateCommentThunk = (car: Car, id: string, body: CommentFormValues
  * @returns {Promise<*>}
  */
  export const deleteCommentThunk = (car: Car, id: string): (dispatch: AppDispatch, getState: () => RootState) => Promise<void> => {
-  return async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     const cars: Car[] = getCars(getState());
-    const newCars: Car[] = cars.filter((p: Car): boolean => p !== car);
+    const newCars: Car[] = cars.filter((c: Car): boolean => c.id !== car.id);
 
-    await COMMENT_API.deleteComment(car.id, id);
+    const updatedCar =await COMMENT_API.deleteComment(car.id, id);
 
     dispatch({
       type: 'CARS_UPDATED', // used in cars list
-      cars: newCars,
+      cars: [updatedCar, ...newCars],
     });
   };
 };
@@ -99,8 +105,8 @@ export const updateCommentThunk = (car: Car, id: string, body: CommentFormValues
  * @returns {Promise<*>}
  */
 export const updateComment = (car: Car, id: string, values: CommentFormValues): AppThunk => {
-  return actionWithLoader(async (dispatch: AppDispatch) => {
-    await updateCommentThunk(car, id, values)(dispatch);
+  return actionWithLoader(async (dispatch: AppDispatch, getState: () => RootState) => {
+    await updateCommentThunk(car, id, values)(dispatch, getState);
   });
 };
 

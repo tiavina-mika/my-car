@@ -3,9 +3,9 @@ import { useCallback, useState } from 'react';
 import { Box, Button } from '@material-ui/core';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { deleteCommentThunk, updateCommentThunk } from '../../actions/comments';
+import { deleteComment, updateComment } from '../../actions/comments';
 import { Car } from '../../types/car';
 import { Comment, CommentFormValues } from '../../types/comment';
 import CommentForm from './CommentForm';
@@ -41,16 +41,16 @@ const ButtonActions = ({ comment, car }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch();
-  const store = useStore();
 
   const toggle = useCallback(() => setOpen(prev => !prev), [setOpen]);
 
   const handleDelete = useCallback((id: string) => {
-    deleteCommentThunk(car, id)(dispatch, store.getState);
-  }, [car, store, dispatch]);
+    dispatch(deleteComment(car, id));
+  }, [car, dispatch]);
 
   const handleEdit = useCallback((values: CommentFormValues) => {
-    updateCommentThunk(car, comment._id, values)(dispatch);
+    dispatch(updateComment(car, comment._id, values));
+
     toggle();
   }, [comment, toggle]);
 
